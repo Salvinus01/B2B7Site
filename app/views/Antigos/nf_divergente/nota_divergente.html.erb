@@ -1,0 +1,157 @@
+﻿		<table width="75%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td class="titpag">
+				<% @situacao.each do |s| %>
+				<% if params[:id] == s.NumNF.to_s + "x" %>
+					Aviso de Crédito Realizado - Nota Fiscal Divergente
+				<% else %>
+					Aviso de crédito Previsto / Antecipação - Nota Fiscal Divergente
+				<% end %>
+				<% end %>
+				</td>
+				<td align="right"></td>
+			</tr>	
+				<tr>
+				  <td colspan="2">&nbsp;</td>
+				</tr>
+		</table>
+		<% @resultado.each do |r| %>	
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgtab">
+			<tr align="left">
+				<td colspan="7" nowrap class="idcampo"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+			</tr>
+			
+			<tr>
+				<td align="right" class="idcampo" nowrap>Nº aviso:</td>
+				<td align="left" class="input" colspan = 6><%= r.Aviso %></td>													
+			</tr>
+			
+			<tr>
+				<td align="right" class="idcampo" nowrap>Vencimento:</td>
+				<td align="left" class="input" colspan = 6><%= r.DataVencimento %></td>													
+			</tr>
+			
+			<tr>
+				<td align="right" class="idcampo" nowrap>Nº Nota Fiscal:</td>
+				<td align="left" class="input" colspan = 6><%= r.NF %></td>													
+			</tr>
+			
+			<tr>
+				<td align="right" class="idcampo" nowrap>Série:</td>
+				<td align="left" class="input" colspan = 6><%= r.SerieNF %></td>													
+			</tr>
+			
+			<tr>
+				<td align="right" class="idcampo" nowrap>Emissão:</td>
+				<td align="left" class="input" colspan = 6><%= r.Emissao %></td>													
+			</tr>
+			
+			<tr>
+				<td align="right" class="idcampo" nowrap>Mercadorias:</td>
+				<td align="left" class="input" colspan = 6>
+					<% if r.VlrBruto != nil %>
+						R$ <%= r.VlrBruto %>
+					<% end %>
+				</td>													
+			</tr>
+			
+			<tr>
+				<td align="right" class="idcampo" nowrap>Total NF:</td>
+				<td align="left" class="input" colspan = 6>
+					<% if r.VlrTotalNF != nil %>
+						R$ <%= r.VlrTotalNF %>
+					<% end %>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="right" class="idcampo" nowrap>Total Descontos:</td>
+				<td align="left" class="input" colspan = 6><%= %></td>													
+			</tr>
+			
+			<tr>
+				<td width="89"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+				<td><img src="/imagens/transparente.gif" width="10" height="10"></td>
+			</tr>
+		</table><br />
+		
+		<% end %>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bgtab">										
+			<tr>
+				<td align="center" class="tittab1" nowrap>Produto</td>
+				<td align="center" class="tittab1" nowrap>Descrição</td>
+				<td align="center" class="tittab1" nowrap>Qtde NF</td>
+				<td align="center" class="tittab1" nowrap>Qtde Pedido</td>
+				<td align="center" class="tittab1" nowrap>Custo NF</td>
+				<td align="center" class="tittab1" nowrap>Custo Pedido</td>
+				<td align="center" class="tittab1" nowrap>Divergência</td>
+				<td align="center" class="tittab1" nowrap>Aliq. IPI</td>
+				<td align="center" class="tittab1" nowrap>ICMS Fonte</td>         
+			</tr>
+			<% @produtos.each do |p| %>
+			<tr>
+				<td align="center" nowrap class="bgtab1"><%= p.CodProduto %></td>
+				<td align="center" nowrap class="bgtab1"><%= p.Descricao %></td>
+				<td align="center" class="bgtab1"><%= p.QtdNF%></td>
+				<td align="center" class="bgtab1"><%= p.QtdPedido %></td>
+				<td align="center" class="bgtab1">
+					<% if p.CustoNF != nil %>
+						R$ <%= p.CustoNF %>
+					<% end %>
+				</td>
+				<td align="center" class="bgtab1">
+					<% if p.CustoPedido != nil %>
+						R$ <%= p.CustoPedido %>
+					<% end %>
+				</td>
+				<td align="center" class="bgtab1">
+					<% if p.Divergencia != nil %>
+						R$ <%= p.Divergencia %>
+					<% end %>
+				</td>
+				<td align="center" class="bgtab1">
+					<% if p.AliquotaIPI != nil %>
+						R$ <%= p.AliquotaIPI %>
+					<% end %>
+				</td>
+				<td align="center" class="bgtab1">
+					<% if p.AliquotaICMS != nil %>
+						R$ <%= p.AliquotaICMS %>
+					<% end %>
+				</td>        
+			</tr>
+			<% end %>
+		</table>
+		
+		<br>
+		<% @resultado.each do |r| %>
+		<table>
+			<tr>
+				<td align="right" nowrap class="idcampo">Valor total considerado:</td>
+				<td align="left" nowrap class="input">
+					<% if r.VlrTotalConsiderado != nil %>
+						R$ <%= r.VlrTotalConsiderado %>
+					<% end %>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="right" nowrap class="idcampo">Total da NF enviado pelo fornecedor:</td>
+				<td align="left" nowrap class="input">
+					<% if r.VlrBruto != nil %>
+						R$ <%= r.VlrBruto %>
+					<% end %>
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="right" nowrap class="idcampo">Divergência:</td>
+				<td align="left" nowrap class="input">
+					<% if r.Abatimento != nil %>
+						R$ <%= r.Abatimento %>
+					<% end %>
+				</td>
+			</tr>
+		</table><br />
+		<% end %>
+			<%= button_to "Voltar", :back, :class=>"semclicar" %>

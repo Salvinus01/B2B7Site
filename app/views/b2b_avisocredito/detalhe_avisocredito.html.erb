@@ -1,0 +1,289 @@
+﻿<script type="text/javascript">
+	$(document).ready(function() {
+	  	var aba = new JTabControl("divFora", "100%", "100%");
+		aba.addTab("divDentro1", "&nbsp;Nota Fiscal&nbsp;");
+		aba.addTab("divDentro2", "&nbsp;Nota Fiscal Devolução&nbsp;");
+		aba.addTab("divDentro3", "&nbsp;Abatimento de Crédito&nbsp;&nbsp;");
+		aba.addTab("divDentro4", "&nbsp;Resumo \(Abatimentos/crédito\)&nbsp;");
+
+		var ultLink = "";
+
+		$(".teste").click(function(event){
+            if ($(this).attr("href").toString() == "#") return true;
+
+            if ($(this).attr('href') == ultLink){
+               $(this).parents("tr").next(".detalhe").hide("slow");
+               ultLink = "";
+               return false;
+            }
+
+            $(this).parents("tr").next().find("td").find("div").load($(this).attr('href'));
+
+            $(".detalhe").hide();
+            $(this).parents("tr").next().show("slow");
+
+            ultLink = $(this).attr('href');
+
+            return false;
+		});
+	});
+</script>
+
+<%= form_tag nil, :class=>"ajusteOffset", :method => "get" do %>
+	<% @avisocredito.each do |ac| %>
+		<div class="titpag2">
+			<div class="conteudo1">
+				<table class="table2">
+					<tr>
+						<td nowrap class="nomeMenu">Financeiro</td>
+						<td nowrap class="nomeMenu">::</td>
+						<td nowrap class="nomeSubmenu">Detalhe do Aviso <% @origem.each do |s| %><%= s.NumAviso %><input type=hidden value="<%= s.NumAviso %>" name="nmNumAviso" /><% end %></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<fieldset class="contMinWidth" id="fundo">
+			<legend><span class="titFieldset">Dados Bancários</span></legend>
+			<table class="table1" id="fundo" align="center">
+				<tr>
+					<td nowrap width="80" align="right" class="idcampo">Banco:</td>
+					<td nowrap width="90" class="campo"><%= ac.CodBanco %></td>
+					<td nowrap width="100" align="right" class="idcampo">Agência:</td>
+					<td nowrap width="100" class="campo"><%= ac.CodAgencia %></td>
+					<td nowrap width="100" align="right" class="idcampo">Conta:</td>
+					<td nowrap width="170" class="campo"><%= ac.NumCC %></td>
+					<td nowrap width="100" align="right" class="idcampo">Contrato N°:</td>
+					<td nowrap width="130" class="campo"><%= ac.RefAdicionais %></td>
+				</tr>
+			</table>
+		</fieldset><br /><br />
+	<% end %>
+
+	<fieldset class="contMinWidth" id="fundo">
+		<legend><span class="titFieldset">Dados do Aviso</span></legend>
+		<% @avisocredito.each do |ac| %>
+			<table class="table1" id="fundo" align="center">
+				<tr>
+					<td nowrap class="idcampo" width="150" align="right">Nº Aviso:</td>
+					<td nowrap class="campo" width="220"><%= ac.NumAviso %></td>
+					<td nowrap class="idcampo" width="150" align="right">Valor Bruto:</td>
+					<td nowrap class="campo" width="220">R$ <%= ac.VlrTotalBruto %></td>
+					<td nowrap class="idcampo" width="150" align="right">Devolução:</td>
+					<td nowrap class="campo" width="150">R$ <%= ac.VlrTotalDevolucoes %></td>
+				</tr>
+				<tr>
+					<td nowrap class="idcampo" align="right">Vencimento:</td>
+					<td nowrap class="campo"><%= ac.DataVencimento %></td>
+					<td nowrap class="idcampo" align="right">Desconto:</td>
+					<td nowrap class="campo">R$ <%= ac.VlrTotalDescontos %></td>
+					<td nowrap class="idcampo" align="right">Abatimento Crédito:</td>
+					<td nowrap class="campo">R$ <%= ac.VlrTotalAbatimentoCredito %></td>
+				</tr>
+				<tr>
+					<td nowrap class="idcampo" align="right">Abatimento:</td>
+					<td nowrap class="campo">R$ <%= ac.VlrTotalAbatimentos %></td>
+					<td nowrap class="idcampo" align="right">Empresa Pagadora:</td>
+					<td class="campo"><%= ac.NomeEmpresaPagadora %></td>
+					<td nowrap class="idcampo" align="right">Valor Líquido:</td>
+					<td nowrap class="campo" colspan=5>R$ <%= ac.VlrTotalLiquido %></td>
+				</tr>
+			</table>
+		<% end %>
+	</fieldset><br /><br />
+
+	<table width="100%" border="0">
+		<tr>
+			<td width="100%">
+				<div id="divFora" style="float:left;">
+					<div id="divDentro1"><div class="estilo14"></div>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bordaAbas">
+							<tr>
+								<td align="center" class="tittab9" height="30">Número</td>
+								<td align="center" class="tittab9" height="30">Série</td>
+								<td align="center" class="tittab9" height="30">Emissão</td>
+								<td align="center" class="tittab9" height="30">Recebimento</td>
+								<td align="center" class="tittab9" height="30">Loja</td>
+								<td align="center" class="tittab9" height="30">CGC</td>
+								<td align="center" class="tittab9" height="30">Bruto</td>
+								<td align="center" class="tittab9" height="30">Desconto</td>
+								<td align="center" class="tittab9" height="30">Abatimento</td>
+							</tr>
+							<% if @notasfiscais.blank? %>
+								<tr id="fundo">
+									<td align="center" class="txt" style="padding:20px" colspan="9">Nenhum dado para exibir.</td>
+								</tr>
+							<% else
+								sClass = "borderTableResul1"
+								@notasfiscais.each do |nf| %>
+									<tr>
+										<td align="center" class="<%= sClass %>"><%= nf.NumNF %></td>
+										<td align="center" class="<%= sClass %>"><%= nf.SerieNF %></td>
+										<td align="center" class="<%= sClass %>"><%= nf.DataHoraEmissao.strftime("%d/%m/%Y") %></td>
+										<td align="center" class="<%= sClass %>"><%= nf.DataHoraEntrega.strftime("%d/%m/%Y") %></td>
+										<td align="center" class="<%= sClass %>"><%= nf.CodEANLocalEntrega %></td>
+										<td align="center" class="<%= sClass %>"><%= nf.CNPJComprador %></td>
+										<td align="center" class="<%= sClass %>">
+											<% if !nf.VlrTotalFatura.blank? %>
+												R$ <%= "%.2f" % nf.VlrTotalFatura %>
+											<% end %>
+										</td>
+										<td align="center" class="<%= sClass %>">
+											<% if nf.VlrTotalDescontos == nil or nf.VlrTotalDescontos == "" or nf.VlrTotalDescontos == 0 %>
+												&nbsp;
+											<% else
+												totalDescontos = "%.2f" % nf.VlrTotalDescontos %>
+												R$ <%= link_to totalDescontos, detalhe_desconto_url(:id=>nf.NumAviso, :nota=>nf.NumNF, :serie=>nf.SerieNF), :class=>"teste" %>
+											<% end %>
+										</td>
+										<td align="center" class="<%= sClass %>">
+											<% if nf.VlrTotalDescontos == nil or nf.VlrTotalDescontos == "" or nf.VlrTotalDescontos == 0 %>
+												&nbsp;
+											<% else
+												totalDescontos = "%.2f" % nf.VlrTotalDescontos %>
+												R$ <%= link_to totalDescontos, detalhe_abatimento_url(:id=>nf.NumAviso, :nota=>nf.NumNF, :serie=>nf.SerieNF), :class=>"teste" %>
+											<% end %>
+										</td>
+
+									</tr>
+									<tr class="detalhe" style="display: none;">
+										<td colspan="9" ><div class="divergente"></div></td>
+										<% if sClass == "borderTableResul1"
+											sClass = "borderTableResul2"
+										else
+											sClass = "borderTableResul1"
+										end%>
+									</tr>
+								<% end
+							end %>
+						</table>
+					</div>
+					<div id="divDentro2"><div class="estilo14"></div>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bordaAbas">
+							<tr>
+								<td align="center" class="tittab9" height="30">Número</td>
+								<td align="center" class="tittab9" height="30">Série</td>
+								<td align="center" class="tittab9" height="30">Data e Hora</td>
+								<td align="center" class="tittab9" height="30">Loja</td>
+								<td align="center" class="tittab9" height="30">Bruto</td>
+								<!-- <td align="center" class="estilo5" height="30">Crédito devolução</td> -->
+							</tr>
+							<% if @notasfiscaisdevolucao.blank? %>
+								<tr id="fundo">
+									<td align="center" class="txt" style="padding:20px" colspan="5">Nenhum dado para exibir.</td>
+								</tr>
+							<% else
+								sClass = "borderTableResul1"
+								@notasfiscaisdevolucao.each do |nfd| %>
+									<tr>
+										<td align="center" class="<%= sClass %>" nowrap><%= nfd.Nota %></td>
+										<td align="center" class="<%= sClass %>" nowrap><%= nfd.Serie %></td>
+										<td align="center" class="<%= sClass %>"><%= nfd.DataHoraEmissao.strftime("%d/%m/%Y") %>&nbsp;&nbsp;&nbsp;<%= nfd.DataHoraEmissao.strftime("%H:%M:%S") %></td>
+										<td align="center" class="<%= sClass %>"><%= nfd.CNPJEmissor %></td>
+										<td align="center" class="<%= sClass %>">
+											<% if !nfd.VlrBrutoTotal.blank? %>
+												R$ <%= nfd.VlrBrutoTotal %>
+											<% end %>
+										</td>
+										<!-- <td align="right" class="bgtab1">&nbsp;</td> -->
+									</tr>
+									<tr class="detalhe" style="display: none;">
+										<td colspan="9"><div class="divergente"></div></td>
+										<% if sClass == "borderTableResul1"
+											sClass = "borderTableResul2"
+										else
+											sClass = "borderTableResul1"
+										end%>
+									</tr>
+								<% end
+							end %>
+						</table>
+					</div>
+					<div id="divDentro3"><div class="estilo14"></div>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bordaAbas">
+							<tr>
+								<!-- <td align="center" class="estilo5" height="30">Número</td>
+								<td align="center" class="estilo5" height="30">Desdobro</td>
+								<td align="center" class="estilo5" height="30">Cód. Loja</td> -->
+								<td align="center" class="tittab9" height="30">Código</td>
+								<td align="center" class="tittab9" height="30">Descrição</td>
+								<td align="center" class="tittab9" height="30">Valor</td>
+							</tr>
+							<% if @abatimentocredito.blank? %>
+								<tr id="fundo">
+									<td align="center" class="txt" style="padding:20px" colspan="3">Nenhum dado para exibir.</td>
+								</tr>
+							<% else
+								sClass = "borderTableResul1"
+								@abatimentocredito.each do |abt| %>
+									<tr>
+										<!-- <td align="center" nowrap class="bgtab1">&nbsp;</td>
+										<td align="center" nowrap class="bgtab1">&nbsp;</td>
+										<td align="center" class="bgtab1">&nbsp;</td> -->
+										<td align="center" class="<%= sClass %>"><%= abt.CodAjuste %></td>
+										<td align="center" class="<%= sClass %>"><%= abt.Referencia %></td>
+										<td align="center" class="<%= sClass %>">R$ <%= abt.SinalAjuste %>&nbsp;<%= abt.VlrTotalAjuste %></td>
+										<%if sClass == "borderTableResul1"
+											sClass = "borderTableResul2"
+										else
+											sClass = "borderTableResul1"
+										end%>
+									</tr>
+								<% end
+							end %>
+						</table>
+					</div>
+					<div id="divDentro4"><div class="estilo14"></div>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bordaAbas">
+							<tr>
+								<td align="center" class="tittab9" height="30">Código</td>
+								<td align="center" class="tittab9" height="30">Descrição</td>
+								<td align="center" class="tittab9" height="30">Valor</td>
+							</tr>
+							<% if @quadroresumo.blank? %>
+								<tr id="fundo">
+									<td align="center" class="txt" style="padding:20px" colspan="3">Nenhum dado para exibir.</td>
+								</tr>
+							<% else
+								sClass = "borderTableResul1"
+								@quadroresumo.each do |q| %>
+									<tr>
+										<td align="center" class="<%= sClass %>"><%= q.CodAjuste %></td>
+										<td align="center" class="<%= sClass %>"><%= q.Referencia %></td>
+										<td align="center" class="<%= sClass %>">R$ <%= q.SinalAjuste %>&nbsp;<%= q.VlrTotalAjuste %></td>
+										<%if sClass == "borderTableResul1"
+											sClass = "borderTableResul2"
+										else
+											sClass = "borderTableResul1"
+										end%>
+									</tr>
+								<% end
+							end %>
+						</table>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	<table width="100%" class="distanciaBtn">
+		<tr width="50%">
+			<td id="red" align="left"><%= submit_tag "Imprimir", :class=>"imprimirSubmit"  %><!-- &nbsp;&nbsp;|&nbsp;&nbsp;<%= submit_tag "Download", :id=>"red", :class=>"estilo4"  %></td> -->
+		</tr>
+		<tr align="right">
+			<td>
+				<div style=float:left class="digg_pagination">
+					<% if B2bAvisocredito.last_page_number >0 %>
+						<%= will_paginate @notasfiscais, :previous_label => "< Anterior", :next_label => "Próximo >" if @notasfiscais.respond_to? :total_pages %>
+					<% else %>
+					<% end %>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	<div style=float:left class="texto1">
+		Documento para simples conferência, sem valor jurídico.<br />
+		Obs.: Valores sujeitos a alterações até a data de vencimento.<br /><br />
+	</div>
+<% end %>

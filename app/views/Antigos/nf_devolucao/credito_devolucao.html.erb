@@ -1,0 +1,49 @@
+﻿		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td class="titpag">
+				<% @situacao.each do |s| %>
+				<% if params[:id] == s.NumNFDevolucao.to_s + "x" %>
+					Aviso de Crédito Realizado - Abatimentos/Descontos
+				<% else %>
+					Aviso de Crédito Previsto / Antecipação - Abatimentos/Descontos
+				<% end %>
+				<% end %>
+				</td>
+				<td align="right"></td>
+			</tr>
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+		</table>
+		
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgtab0">
+		<% @situacao.each do |s| %>
+			<tr> 
+				<td colspan=3 align="center" width="16%" class="tittab2">Discriminação dos valores de abatimento / Descontos da NF - <%=  s.NumNFDevolucao %> Série - <%= s.SerieNF %></td>
+			</tr>
+		<% end %>
+			<tr>
+				<td align="center" width="20%" class="tittab2">Código</td>
+				<td align="center" width="55%" class="tittab2">Descrição</td>
+				<td nowrap align="center" width="25%" class="tittab2">Crédito Devolução</td>
+			</tr>
+		<% @resultado.each do |res| %>
+			<tr> 
+				<td align="center" class="bgtab1"><%= res.Codigo %></td>
+				<td align="center" class="bgtab1"><%= res.Descricao %></td>
+				<td align="center" class="bgtab1"><%= "%.2f" % res.VlrCreditoDevolucao %></td>
+			</tr>
+		<% end %>
+		</table>
+		<br>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td align="left" height=25 class="txt2">Documento para simples conferência, sem valor jurídico.</td>
+			</tr>
+		</table>
+		<br>
+		<table align="left" border="0" cellpadding="0" cellspacing="0">
+			<tr> 
+				<td><%= button_to "Voltar", :back, :class=>"semclicar" %></td>
+			</tr>
+		</table>

@@ -1,0 +1,92 @@
+﻿<%= form_tag nil, :name=> "formulario", :method => "get" do %>
+	<table width="100%" id="margemNegativa" >
+		<tr>
+			<td align="center" class="estilo3" height="30" width="3%">&nbsp;</td>
+			<td align="center" class="estilo3" height="30" width="10%">N° NF</td>
+			<td align="center" class="estilo3" height="30" width="9%">Série</td>
+			<td align="center" class="estilo3" height="30" width="10%">Emissão</td>
+			<td align="center" class="estilo3" height="30" width="10%">Entrega</td>
+			<td align="center" class="estilo3" height="30" width="11%">Merc.</td>
+			<td align="center" class="estilo3" height="30" width="8%">IPI</td>
+			<td align="center" class="estilo3" height="30" width="10%">Enc.</td>
+			<td align="center" class="estilo3" height="30" width="7%">Frete</td>
+			<td align="center" class="estilo3" height="30" width="7%">ICMS</td>
+			<td align="center" class="estilo3" height="30" width="15%">Total</td>
+		</tr> 
+		<% sClasse = "borderTableResul1" %>
+		<% @pesquisa.each do |p| %>
+			<tr> 
+				<td align="center" class="<%= sClasse %>">
+					<input type="radio" name="idRadio1" id="idRadio1" value="id=<%= p.NumNF %>&SerieNF=<%= p.SerieNF %>" />
+					<input type="hidden" name="SerieNFxxx" value="<%= p.SerieNF %>" />
+				</td>
+				<td align="center" class="<%= sClasse %>"><%= p.NumNF %></td>
+				<td align="center" class="<%= sClasse %>"><%= p.SerieNF %></td>
+				<td align="center" class="<%= sClasse %>" nowrap>
+					<% if !p.DataHoraEmissao.blank? %>
+						<%= p.DataHoraEmissao.strftime("%d/%m/%Y - %H:%M")%>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>" nowrap>
+					<% if !p.DataHoraEntrega.blank? %>
+						<%= p.DataHoraEntrega.strftime("%d/%m/%Y - %H:%M")%>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if p.VlrTotalFatura != nil %>
+						R$ <%= "%.2f" % p.VlrTotalFatura %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if p.VlrTotalIPI != nil %>
+						R$ <%= "%.2f" % p.VlrTotalIPI %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if p.VlrTotalEncargos != nil %>
+						R$ <%= "%.2f" % p.VlrTotalEncargos %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if p.VlrFrete != nil %>
+						R$ <%= "%.2f" % p.VlrFrete  %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if p.VlrTotalICMS != nil %>
+						R$ <%= "%.2f" % p.VlrTotalICMS %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if p.VlrTotalLiq != nil %>
+						R$ <%= "%.2f" % p.VlrTotalLiq %>
+					<% end %>
+				</td>
+				<% if sClasse == "borderTableResul1"
+					sClasse = "borderTableResul2"
+				else
+					sClasse = "borderTableResul1"
+				end %>
+			</tr>
+		<% end %>
+	</table>
+	
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="distanciaBtn">
+		<tr>
+			<td class="link" width="40%">
+				<%= submit_tag "Cancelar", :onclick=>"return ValidaNroAviso();return false", :class=>"cancelarNFSubmit"  %>
+			</td>
+			<td align="right" class="digg_pagination">
+				<% if B2bNotafiscal.last_page_number >0 %>
+					<%= will_paginate @pesquisa, :previous_label => "< Anterior", :next_label => "Próximo >" if @pesquisa.respond_to? :total_pages %>
+				<% else %>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="texto1">
+		Documento para simples conferência, sem valor jurídico.<br />
+		Obs.: Valores sujeitos a alterações até a data de vencimento.
+	</div>
+<% end %>

@@ -1,0 +1,213 @@
+﻿<style rel="stylesheet" type="text/css" media="print">
+   .impressao{display:none}
+   hr{page-break-after:always}
+</style>
+
+<center>
+
+<table class="impressao" width="90%">
+	<tr>
+		<td align="left"><h2>Nota fiscal de devolução selecionada para impressão:<h2></td>
+		<td align="left"><%= params[:id] %>.</td>
+	</tr>
+</table>
+
+<table class="impressao" width="90%" >	
+	<tr>
+		<td align="left" width="62"><input type="button" class="semclicar" value="Imprimir" onclick="Imprimir()" /></td>
+		<td align="left"><%= button_to "Voltar", :back, :class=>"semclicar" %></td>
+	</tr>
+	
+	<tr>
+		<td colspan=2><hr /></td>
+	</tr>
+</table>
+
+<h3>Nota Fiscal de devolução</h3>
+
+<table width="90%" class="borda">
+	<tr align="center">
+		<th colspan="6">Dados do Emitente:</td>
+	</tr>
+	<% @dadosemitente.each do |e| %>
+		<tr>
+			<td align="right" nowrap>Razão Social:</td>
+			<td align="left" nowrap><%= e.RazaoSocial %></td>
+			<td align="right" nowrap>Natureza da Operação:</td>
+			<td align="left" nowrap>&nbsp;</td>
+			<td align="right" nowrap>&nbsp; </td>
+			<td align="left" nowrap>&nbsp; </td>							
+		</tr>
+		
+		<tr>
+			<td align="right" nowrap>Endereço:</td>
+			<td align="left" nowrap><%= e.Endereco %></td>
+			<td align="right" nowrap>Nº Nota Fiscal:</td>
+			<td align="left" nowrap><%= e.NumNF %></td>
+			<td align="right" nowrap>Data de Emissão:</td>
+			<td align="left" nowrap><%= e.DataHoraEmissao %></td>							
+		</tr>
+				
+		<tr>
+			<td align="right" nowrap>Município:</td>
+			<td align="left" nowrap><%= e.Cidade  %></td>
+			<td align="right" nowrap>Estado:</td>
+			<td align="left" nowrap><%= e.Estado %></td>
+			<td align="right" nowrap>&nbsp; </td>
+			<td align="left" nowrap>&nbsp; </td>							
+		</tr>
+		
+		<tr>
+			<td align="right" nowrap>CNPJ/CPF:</td>
+			<td align="left" nowrap><%= e.CNPJEmissor %></td>
+			<td align="right" nowrap>IE:</td>
+			<td align="left" nowrap><%= e.IEEmissor  %></td>
+			<td align="right" nowrap>CFOP:</td>
+			<td align="left" nowrap><%= e.CFOPPadrao  %></td>							
+		</tr>						
+	<% end %>
+</table><br />
+		
+<table width="90%" class="borda">
+	<tr align="center">
+		<th colspan="6">Dados do Destinatário / Remetente:</td>
+	</tr>			
+	<% @dadosremetente.each do |r| %>	
+		<tr>
+			<td align="right" nowrap>Razão Social:</td>
+			<td align="left" nowrap><%= r.RazaoSocial %></td>
+			<td align="right" nowrap>Endereço:</td>
+			<td align="left" nowrap><%= r.Endereco %></td>
+			<td align="right" nowrap>CEP:</td>
+			<td align="left" nowrap><%= r.CEP %></td>							
+		</tr>
+						
+		<tr>
+			<td align="right" nowrap>Município:</td>
+			<td align="left" nowrap><%= r.Cidade %></td>
+			<td align="right" nowrap>Bairro:</td>
+			<td align="left" nowrap><%= r.Bairro %></td>
+			<td align="right" nowrap>Fone: </td>
+			<td align="left" nowrap>&nbsp;</td>	
+		</tr>
+			
+		<tr>
+			<td align="right" nowrap>CNPJ/CPF:</td>
+			<td align="left" nowrap><%= r.CGCFornecedor %></td>
+			<td align="right" nowrap>Estado:</td>
+			<td align="left" nowrap><%= r.Estado %></td>
+			<td align="right" nowrap>IE:</td>
+			<td align="left" nowrap><%= r.InscricaoEstadual %></td>						
+		</tr>						
+	<% end %>
+</table><br />
+	
+<table width="90%" border>
+	<tr align="center">
+		<th colspan="8">Dados do Produto:</td>
+	</tr>	
+	
+	<tr>
+		<td align="center">Código Produto</td>
+		<td align="center">Descrição do(s) Produto(s)</td>
+		<td align="center">Sit. Trib.</td>
+		<td align="center">Unid.</td>
+		<td align="center">Quant.</td>
+		<td align="center">Valor Unitário</td>
+		<td align="center">Valor Total</td>
+		<td align="center">Alíquota ICMS</td>        
+	</tr>
+	<% @dadosproduto.each do |p| %>				
+		<tr>
+			<td align="right" nowrap><%= p.CodProduto %>&nbsp;</td>
+			<td align="left" nowrap><%= p.DescProduto %></td>
+			<td align="left" nowrap><%= p.CodSitTributaria %></td>
+			<td align="left" nowrap><%= p.UnidadeMedida %></td>
+			<td align="right" nowrap><%= p.QtdeFaturada  %></td>
+			<td align="right" nowrap><%= "%.2f" % p.VlrUnitarioBruto %></td>
+			<td align="right" nowrap><%= "%.2f" % p.VlrLiquidoTotal %></td>
+			<td align="right" nowrap><%= "%.2f" % p.TaxaAliquotaICMS %></td>							
+		</tr>		
+	<% end %>
+</table><br />
+
+<table width="90%" class="borda">
+	<tr align="center">
+		<th colspan="6">Cálculo do Imposto:</td>
+	</tr>
+	<% @dados_notafiscaldevolucao.each do |p| %>			
+		<tr>
+			<td align="right" nowrap>Base do cálculo ICMS:</td>
+			<td align="left" nowrap><%= "%.2f" % p.VlrBaseCalcICMS %></td>
+			<td align="right" nowrap>Valor Total dos Produtos:</td>
+			<td align="left" nowrap><%= "%.2f" % p.VlrTotalMercadorias %></td>
+			<td align="right" nowrap>Valor Total do IPI:</td>
+			<td align="left" nowrap><%= "%.2f" % p.VlrTotalIPI %></td>							
+		</tr>
+				
+		<tr>
+			<td align="right" nowrap>Valor do ICMS:</td>
+			<td align="left" nowrap><%= "%.2f" % p.VlrTotalICMS %></td>
+			<td align="right" nowrap>Valor do Frete:</td>
+			<td align="left" nowrap><%= "%.2f" % p.VlrTotalFrete %></td>
+			<td align="right" nowrap>Valor Total da Nota:</td>
+			<td align="left" nowrap><%= "%.2f" % p.VlrTotalNota %></td>							
+		</tr>
+			
+		<tr>
+			<td align="right" nowrap>Base do cálculo ICMS Substituição:</td>
+			<td align="left" nowrap><%= "%.2f" % p.VlrBaseCalcICMSSub  %></td>
+			<td align="right" nowrap>Valor do Seguro:</td>
+			<td align="left" nowrap><%= "%.2f" % p.VlrTotalSeguro %></td>
+			<td align="right" nowrap>&nbsp;</td>
+			<td align="left" nowrap>&nbsp;</td>							
+		</tr>	
+
+		<tr>
+			<td align="right" nowrap>Valor ICMS Substituição:</td>
+			<td align="left" nowrap><%= "%.2f" % p.VlrTotalICMSSub %></td>
+			<td align="right" nowrap>Outras Despesas Acessórias:</td>
+			<td align="left" nowrap>&nbsp;</td>
+			<td align="right" nowrap>&nbsp;</td>
+			<td align="left" nowrap>&nbsp;</td>							
+		</tr>	
+	<% end %>
+</table><br />
+		
+<table width="90%" class="borda">
+	<tr align="center">
+		<th colspan="6">Transportadora / Volumes Transportados:</td>
+	</tr>
+				
+	<tr>
+	<% @dados_notafiscaldevolucao.each do |t| %>
+		<tr>
+			<td align="right" nowrap>Nome / Razão Social:</td>
+			<td align="left" nowrap><%= t.NomeTransp %></td>
+			<td align="right" nowrap>CNPJ:</td>
+			<td align="left" nowrap><%= t.CodEANCGCTransp %></td>
+			<td align="right" nowrap>Placa do Veículo:</td>
+			<td align="left" nowrap><%= t.IdentPlaca %></td>							
+		</tr>
+
+		<tr>
+			<td align="right" nowrap>Peso Bruto:</td>
+			<td align="left" nowrap><%= t.TotalPesoBruto %></td>
+			<td align="right" nowrap>Peso Líquido:</td>
+			<td align="left" nowrap><%= t.TotalPesoLiquido %></td>
+			<td align="right" nowrap>Tipo de Frete:</td>
+			<td align="left" nowrap><%= t.TipoFrete %></td>	
+		</tr>
+				
+		<tr>
+			<td align="right" nowrap>UF:</td>
+			<td align="left" nowrap>&nbsp;</td>
+			<td align="right" nowrap>&nbsp;</td>
+			<td align="left" nowrap>&nbsp;</td>
+			<td align="right" nowrap>&nbsp;</td>
+			<td align="left" nowrap>&nbsp;</td>
+		</tr>
+	<% end %>
+</table><br /><br />
+
+</center>

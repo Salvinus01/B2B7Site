@@ -1,0 +1,270 @@
+﻿<style rel="stylesheet" type="text/css" media="print">
+   .impressao{display:none}
+   hr{page-break-after:always}
+</style>
+
+<center>
+
+<table class="impressao" width="90%" >	
+	<tr>
+		<td align="left" width="62"><input type="button" class="semclicar" value="Imprimir" onclick="Imprimir()" /></td>
+		<td align="left"><%= button_to "Voltar", :back, :class=>"semclicar" %></td>
+	</tr>
+	
+	<tr>
+		<td colspan=2><hr></td>
+	</tr>
+</table>
+
+<% @avisocredito.each do |av| %>
+
+	<% if av.FlgAviso == "1" %>
+		<h3><b>Aviso de Crédito Realizado</b></h3>
+	<% else %>
+		<h3><b>Aviso de Crédito Previsto / Antecipação</b></h3>
+	<% end %>
+
+	<table width="90%" border="1" cellpadding="0" cellspacing="0" class="">
+		<tr align="center">
+			<th colspan="3">Aviso <%= av.NumAviso %></td>
+		</tr>
+	
+		<tr>
+			<td>
+				<table>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Banco:</td>
+						<td align="left" nowrap><%= av.CodBanco %></td>
+					</tr>
+					
+					<tr>
+						<td align="right" class="idcampo" nowrap>Agência:</td>
+						<td align="left" nowrap><%= av.CodAgencia %></td>
+					</tr>
+					
+					<tr>
+						<td align="right" class="idcampo" nowrap>Conta:</td>
+						<td align="left" nowrap><%= av.NumCC %></td>
+					</tr>
+					
+					<tr>
+						<td align="right" class="idcampo" nowrap>Contrato Nº:</td>
+						<td align="left" nowrap>&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Empresa Pagadora:&nbsp;</td>
+						<td align="left"><%= av.NomeEmpresaPagadora %></td>													
+					</tr>
+					
+					<tr>
+						<td align="right" class="idcampo" nowrap>Vencimento:&nbsp;</td>
+						<td align="left"><%= av.DataVencimento %></td>													
+					</tr>
+
+					<tr>
+						<td align="right" class="idcampo" nowrap>Abatimento Crédito:&nbsp;</td>
+						<td align="left">
+							<% if av.VlrTotalAbatimentoCredito != nil %>
+								R$ <%= "%.2f" % av.VlrTotalAbatimentoCredito %>
+							<% end %>
+						</td>
+					</tr>
+						
+					<tr>
+						<td align="right" class="idcampo" nowrap>Bruto:&nbsp;</td>
+						<td align="left">
+							<% if av.VlrTotalBruto != nil %>
+								R$ <%= "%.2f" % av.VlrTotalBruto %>
+							<% end %>
+						</td>													
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Devolução:&nbsp;</td>
+						<td align="left">
+							<% if av.VlrTotalDevolucoes != nil %>
+								R$ <%= "%.2f" % av.VlrTotalDevolucoes %>
+							<% end %>
+						</td>													
+					</tr>
+							
+					<tr>
+						<td align="right" class="idcampo" nowrap>Desconto:&nbsp;</td>
+						<td align="left">
+							<% if av.VlrTotalDescontos != nil %>
+								R$ <%= "%.2f" % av.VlrTotalDescontos %>
+							<% end %>
+						</td>													
+					</tr>
+						
+					<tr>
+						<td align="right" class="idcampo" nowrap>Abatimento:&nbsp;</td>
+						<td align="left">
+							<% if av.VlrTotalAbatimentos != nil %>
+								R$ <%= "%.2f" % av.VlrTotalAbatimentos %>
+							<% end %>
+						</td>													
+					</tr>
+							
+					<tr>
+						<td align="right" class="idcampo" nowrap>Líquido:&nbsp;</td>
+						<td align="left">
+							<% if av.VlrTotalLiquido != nil %>
+								R$ <%= "%.2f" % av.VlrTotalLiquido %>
+							<% end %>
+						</td>													
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table><br />
+<% end %>
+
+<table width="90%" border="1" cellpadding="0" cellspacing="0">		
+	<tr align="center">
+		<th colspan="9">Nota Fiscal</td>
+	</tr>
+	
+	<tr>
+		<td align="center" >Número</td>
+		<td align="center" >Série</td>
+		<td align="center" >Emissão</td>
+		<td align="center" >Recebimento</td>
+		<td align="center" >Loja</td>
+		<td align="center" >/CGC</td>
+		<td align="center" >Bruto</td>
+		<td align="center" >Desconto</td>
+		<td align="center" >Abatimento</td>   	     
+	</tr>	
+	<% @notasfiscais.each do |nota| %>
+	<tr>
+		<td align="center" nowrap><%= nota.NumNF %></td>
+		<td align="center" nowrap><%= nota.SerieNF %></td>
+		<td align="center"><%= nota.DataHoraEmissao %></td>
+		<td align="center"><%= nota.DataHoraEntrega %></td>
+		<td align="center">&nbsp;</td>
+		<td align="center">&nbsp;</td>
+		<td align="center">
+			<% if nota.VlrTotalFatura != nil %>
+				R$ <%= "%.2f" % nota.VlrTotalFatura %>
+			<% end %>
+		</td>
+		<td align="right">
+			<% if nota.VlrTotalDescontos != nil %>
+				R$ <%= "%.2f" % nota.VlrTotalDescontos %>
+			<% end %>
+		</td>
+		<td align="right">
+		&nbsp;
+		</td>        
+	</tr>
+	<% end %>
+</table><br />
+
+<table width="90%" border="1" cellpadding="0" cellspacing="0">
+	<tr align="center">
+		<th colspan="6">Nota Fiscal de devolução</td>
+	</tr>
+		
+	<tr>
+		<td align="center">Número</td>
+		<td align="center">Série</td>
+		<td align="center">Data</td>
+		<td align="center">Loja</td>
+		<td align="center">Bruto</td>
+		<td align="center">Crédito devolução</td>				    
+	</tr>
+	<% @notasfiscaisdevolucao.each do |nfd| %>
+	<tr>
+		<td align="center" nowrap><%= nfd.NumNF %></td>
+		<td align="center" nowrap><%= nfd.SerieNF %></td>
+		<td align="center"><%= nfd.DataHoraEmissao %></td>
+		<td align="center">&nbsp;</td>
+		<td align="right">
+			<% if nfd.VlrBrutoTotal != nil %>
+				R$ <%= "%.2f" % nfd.VlrBrutoTotal %>
+			<% end %>
+		</td>
+		<td align="right">
+			&nbsp;
+		</td>				       
+	</tr>
+	<% end %>
+</table><br />
+
+<table width="90%" border="1" cellpadding="0" cellspacing="0">
+	<tr align="center">
+		<th colspan="6">Abatimento de crédito</td>
+	</tr>	
+	
+	<tr>
+		<!-- <td align="center">Número</td>
+		<td align="center">Desdobro</td>
+		<td align="center">Cód. Loja</td> -->
+		<td align="center">Código</td>
+		<td align="center">Descrição</td>
+		<td align="center">Valor</td>				    
+	</tr>		
+	<% @abatimentocredito.each do |abt| %>
+	<tr>
+		<!-- <td align="center" nowrap >&nbsp;</td>
+		<td align="center" nowrap >&nbsp;</td>
+		<td align="center" >&nbsp;</td> -->
+		<td align="center" ><%= abt.CodAjuste %></td>
+		<td align="center" ><%= abt.Referencia %></td>
+		<td align="center" >
+			<% if abt.VlrTotalAjuste != nil %>
+				R$ <%= "%.2f" % abt.VlrTotalAjuste %>
+			<% end %>
+		</td>				       
+	</tr>
+	<% end %>
+</table><br/>
+	
+<table width="90%" border="1" cellpadding="0" cellspacing="0">
+	<tr align="center">
+		<th colspan="3">Resumo dos Valores de abatimentos, 
+		Descontos e Abatimentos no crédito (Contrato)</td>
+	</tr>
+
+	<tr>
+		<td align="center">Código</td>
+		<td align="center">Descrição</td>
+		<td align="center">Valor</td>			    
+	</tr>
+	<% @quadroresumo.each do |qr| %>
+	<tr>
+		<td align="center"><%= qr.CodAjuste %></td>
+		<td align="center"><%= qr.Referencia %></td>
+		<td align="center">
+		<% if qr.VlrTotalAjuste != nil %>
+			R$ <%= "%.2f" % qr.VlrTotalAjuste %>
+		<% end %>
+		</td>			       
+	</tr>
+	<% end %>
+</table><br /><br />
+
+<table width="90%">
+	<tr>
+		<td>PARA FORNECEDORES DE REVENDA: As dúvidas relacionadas a vencimentos e divergências deverão 
+		ser solucionadas junto à Central de Serviços Compartilhados (CSC), através do e-mail admcompras@b2b7.com.br 
+		ou pelo telefone (11)3110-5555, opção 1 - Contas a Pagar.<br /><br />
+		PARA FORNECEDORES DE PRESTAÇÃO DE SERVIÇOS E MATERIAIS DE USO E CONSUMO: As Dúvidas com relação as notas
+		ficais deverão ser solucionadas junto ao DEPARTAMENTO/LOJA CONTRATANTE.<br /><br />
+		Dúvidas relacionadas as Verbas Contratuais / Negociação Comercial, favor contatar o seu comprador.<br /><br />
+		Documentos para simples conferência, sem valor jurídico.<br /><br />
+		Obs.: Valores sujeitos a alterações até a data de vencimento.</td>
+	</tr>
+</table><br /><br />
+
+<hr width="90%"><br /><br />
+
+</center>

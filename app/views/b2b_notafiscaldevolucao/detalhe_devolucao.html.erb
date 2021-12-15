@@ -1,0 +1,361 @@
+﻿<div class="ajusteOffset">
+	<div class="titpag2">
+		<div class="conteudo1">
+			<table class="table2">
+				<tr>
+					<td nowrap class="nomeMenu">Mercantil</td>
+					<td nowrap class="nomeMenu">::</td>
+					<td nowrap class="nomeSubmenu">Nota Fiscal de Devolução - Detalhe</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<% if !@dadosemitente.blank? %>
+		<fieldset class="contMinWidth" id="fundo">
+			<legend><span class="titFieldset">Dados do Emitente</span></legend>
+			<table border="0" class="table1" align="center">
+				<% @dadosemitente.each do |f| %>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Razão Social:</td>
+						<td class="campo" nowrap>
+							<% if f.RazaoSocial.blank? %>
+								Não informado.
+							<% else %>
+								<%= f.RazaoSocial %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>Natureza da Operação:</td>
+						<td class="campo" nowrap colspan="3">Não informado.</td>
+					</tr>
+					<tr>
+						<td width="250" align="right" class="idcampo" nowrap>Endereço:</td>
+						<td width="130" class="campo" nowrap>
+							<% if f.Endereco.blank? %>
+								Não informado.
+							<% else %>
+								<%= f.Endereco %>
+							<% end %>
+						</td>
+						<td width="250" align="right" class="idcampo" nowrap>Nº Nota Fiscal:</td>
+						<td width="130" class="campo" nowrap><%= f.NumNF %></td>
+						<td width="250" align="right" class="idcampo" nowrap>Data de Emissão:</td>
+						<td width="130" class="campo" nowrap>
+							<% if f.DataHoraEmissao.blank? %>
+								Não informado.
+							<% else %>
+								<%= f.DataHoraEmissao.srtftime("%d/%m/%Y") %>
+							<% end %>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Município:</td>
+						<td class="campo" nowrap>
+							<% if f.Cidade.blank? %>
+								Não informado.
+							<% else %>
+								<%= f.Cidade %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>Estado:</td>
+						<td class="campo" nowrap colspan="3">
+							<% if f.Estado.blank? %>
+								Não informado.
+							<% else %>
+								<%= f.Estado %>
+							<% end %>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" class="idcampo" nowrap>CNPJ/CPF:</td>
+						<td class="campo" nowrap>
+							<% if f.CNPJEmissor.blank? %>
+								Não informado.
+							<% else %>
+								<%= f.CNPJEmissor %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>IE:</td>
+						<td class="campo" nowrap>
+							<% if f.IEEmissor.blank? %>
+								Não informado.
+							<% else %>
+								<%= f.IEEmissor %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>CFOP:</td>
+						<td class="campo" nowrap>
+							<% if f.CFOPPadrao.blank? %>
+								Não informado.
+							<% else %>
+								<%= f.CFOPPadrao %>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+			</table>
+		</fieldset><br /><br />
+	<% end %>
+
+	<% if !@dadosremetente.blank? %>
+		<fieldset class="contMinWidth" id="fundo">
+			<legend><span class="titFieldset">Dados do Destinatário / Remetente</span></legend>
+			<table border="0" class="table1" align="center">
+				<% @dadosremetente.each do |r| %>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Razão Social:</td>
+						<td class="campo" nowrap colspan="5"><%= r.RazaoSocial %></td>
+					</tr>
+					<tr>
+						<td width="250" align="right" class="idcampo" nowrap>Endereço:</td>
+						<td width="130" class="campo" nowrap>
+							<% if r.Endereco.blank? %>
+								Não informado.
+							<% else %>
+								<%= r.Endereco %>
+							<% end %>
+						</td>
+						<td width="250" align="right" class="idcampo" nowrap>Bairro:</td>
+						<td width="130" class="campo" nowrap>
+							<% if r.Bairro.blank? %>
+								Não informado.
+							<% else %>
+								<%= r.Bairro %>
+							<% end %>
+						</td>
+						<td width="250" align="right" class="idcampo" nowrap>CEP:</td>
+						<td width="130" class="campo" nowrap>
+							<% if r.CEP.blank? %>
+								Não informado.
+							<% else %>
+								<%= r.CEP %>
+							<% end %>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Município:</td>
+						<td class="campo" nowrap>
+							<% if r.Cidade.blank? %>
+								Não informado.
+							<% else %>
+								<%= r.Cidade %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>Estado:</td>
+						<td class="campo" nowrap>
+							<% if r.Estado.blank? %>
+								Não informado.
+							<% else %>
+								<%= r.Estado %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>Fone: </td>
+						<td class="campo" nowrap>Não informado.</td>
+					</tr>
+					<tr>
+						<td align="right" class="idcampo" nowrap>CNPJ/CPF:</td>
+						<td class="campo" nowrap>
+							<% if r.CGCFornecedor.blank? %>
+								Não informado.
+							<% else %>
+								<%= r.CGCFornecedor %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>IE:</td>
+						<td class="campo" nowrap colspan="3">
+							<% if r.InscricaoEstadual.blank? %>
+								Não informado.
+							<% else %>
+								<%= r.InscricaoEstadual %>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+			</table>
+		</fieldset><br /><br />
+	<% end %>
+
+	<fieldset class="contMinWidth" id="fundo">
+		<legend><span class="titFieldset">Dados do Produto</span></legend>
+		<table width="100%" border="0" class="table1">
+			<tr>
+				<td align="center" class="tittab7">Código Produto</td>
+				<td align="center" class="tittab7">Descrição do(s) Produto(s)</td>
+				<td align="center" class="tittab7">Sit. Trib.</td>
+				<td align="center" class="tittab7">Unid.</td>
+				<td align="center" class="tittab7">Quant.</td>
+				<td align="center" class="tittab7">Valor Unitário</td>
+				<td align="center" class="tittab7">Valor Total</td>
+				<td align="center" class="tittab7">Alíquota ICMS</td>
+			</tr>
+			<% if @dadosproduto.blank? %>
+				<tr id="fundo">
+					<td align="center" class="txt" style="padding-top:15px" colspan="8">Nenhum dado para exibir.</td>
+				</tr>
+			<% else %>
+				<% sClasse = "borderTableResul1"
+				@dadosproduto.each do |p| %>
+					<tr>
+						<td align="right" class="<%= sClasse %>" nowrap><%= p.CodProduto %></td>
+						<td class="<%= sClasse %>" nowrap><%= p.DescProduto %></td>
+						<td class="<%= sClasse %>" nowrap><%= p.CodSitTributaria %></td>
+						<td class="<%= sClasse %>" nowrap><%= p.UnidadeMedida %></td>
+						<td align="right" class="<%= sClasse %>" nowrap><%= p.QtdeFaturada %></td>
+						<td align="right" class="<%= sClasse %>" nowrap>R$ <%= p.VlrUnitarioBruto %></td>
+						<td align="right" class="<%= sClasse %>" nowrap>R$ <%= p.VlrLiquidoTotal %></td>
+						<td align="right" class="<%= sClasse %>" nowrap>R$ <%= p.TaxaAliquotaICMS %></td>
+					</tr>
+					<% if sClasse == "borderTableResult1"
+						sClasse = "borderTableResul2"
+					else
+						sClasse = "borderTableResul1"
+					end
+				end
+			end %>
+		</table>
+	</fieldset><br /><br />
+
+	<% if !@dados_notafiscaldevolucao.blank? %>
+		<fieldset class="contMinWidth" id="fundo">
+			<legend><span class="titFieldset">Cálculo do Imposto</span></legend>
+			<table border="0" class="table1" align="center">
+				<% @dados_notafiscaldevolucao.each do |i| %>
+					<tr>
+						<td width="250" align="right" class="idcampo" nowrap>Base do cálculo ICMS:</td>
+						<td width="130" class="campo" nowrap>
+							<% if !i.VlrBaseCalcICMS.blank? %>
+								R$ <%= "%.2f" % i.VlrBaseCalcICMS %>
+							<% end %>
+						</td>
+						<td width="250" align="right" class="idcampo" nowrap>Valor Total dos Produtos:</td>
+						<td width="130" class="campo" nowrap>
+							<% if !i.VlrTotalMercadorias.blank? %>
+								R$ <%= "%.2f" % i.VlrTotalMercadorias %>
+							<% end %>
+						</td>
+						<td width="250" align="right" class="idcampo" nowrap>Valor Total do IPI:</td>
+						<td width="130" class="campo" nowrap>
+							<% if !i.VlrTotalIPI.blank? %>
+								R$ <%= "%.2f" % i.VlrTotalIPI %>
+							<% end %>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Valor do ICMS:</td>
+						<td class="campo" nowrap>
+							<% if !i.VlrTotalICMS.blank? %>
+								R$ <%= "%.2f" % i.VlrTotalICMS %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>Valor do Frete:</td>
+						<td class="campo" nowrap>
+							<% if !i.VlrTotalFrete.blank? %>
+								R$ <%= "%.2f" % i.VlrTotalFrete %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>Valor Total da Nota:</td>
+						<td class="campo" nowrap>
+							<% if !i.VlrTotalNota.blank? %>
+								R$ <%= "%.2f" % i.VlrTotalNota %>
+							<% end %>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" class="idcampo">Base do cálculo ICMS Substituição:</td>
+						<td class="campo" nowrap>
+							<% if !i.VlrBaseCalcICMSSub.blank? %>
+								R$ <%= "%.2f" % i.VlrBaseCalcICMSSub %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>Valor do Seguro:</td>
+						<td class="campo" nowrap colspan="3">
+							<% if !i.VlrTotalSeguro.blank? %>
+								R$ <%= "%.2f" % i.VlrTotalSeguro %>
+							<% end %>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Valor ICMS Substituição:</td>
+						<td class="campo" nowrap>
+							<% if !i.VlrTotalICMSSub.blank? %>
+								R$ <%= "%.2f" % i.VlrTotalICMSSub %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>Outras Despesas Acessórias:</td>
+						<td class="campo" nowrap colspan="3">-</td>
+					</tr>
+				<% end %>
+			</table>
+		</fieldset><br /><br />
+	<% end %>
+
+	<% if !@dados_notafiscaldevolucao.blank? %>
+		<fieldset class="contMinWidth" id="fundo">
+			<legend><span class="titFieldset">Transportadora / Volumes Transportados</span></legend>
+			<table border="0" class="table1" align="center">
+				<% @dados_notafiscaldevolucao.each do |t| %>
+					<tr>
+						<td width="250" align="right" class="idcampo" nowrap>Nome / Razão Social:</td>
+						<td width="130" class="campo" nowrap>
+							<% if t.NomeTransp.blank? %>
+								Não informado.
+							<% else %>
+								<%= t.NomeTransp %>
+							<% end %>
+						</td>
+						<td width="250" align="right" class="idcampo" nowrap>Tipo de Frete:</td>
+						<td width="130" class="campo" nowrap>
+							<% if t.TipoFrete.blank? %>
+								Não informado.
+							<% else %>
+								<%= t.TipoFrete %>
+							<% end %>
+						</td>
+						<td width="250" align="right" class="idcampo" nowrap>Placa do Veículo:</td>
+						<td width="130" class="campo" nowrap>
+							<% if t.IdentPlaca.blank? %>
+								Não informado.
+							<% else %>
+								<%= t.IdentPlaca %>
+							<% end %>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" class="idcampo" nowrap>UF:</td>
+						<td class="campo" nowrap>Não informado.</td>
+						<td align="right" class="idcampo" nowrap>CNPJ:</td>
+						<td class="campo" nowrap colspan="3">
+							<% if t.CodEANCGCTransp.blank? %>
+								Não informado.
+							<% else %>
+								<%= t.CodEANCGCTransp %>
+							<% end %>
+						</td>
+					</tr>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Peso Bruto:</td>
+						<td class="campo" nowrap>
+							<% if t.TotalPesoBruto.blank? %>
+								Não informado.
+							<% else %>
+								<%= t.TotalPesoBruto %>
+							<% end %>
+						</td>
+						<td align="right" class="idcampo" nowrap>Peso Líquido:</td>
+						<td class="campo" nowrap colspan="3">
+							<% if t.TotalPesoLiquido.blank? %>
+								Não informado.
+							<% else %>
+								<%= t.TotalPesoLiquido %>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+			</table>
+		</fieldset>
+	<% end %>
+
+	<div align="left" class="contMinWidth">
+		<%= image_submit_tag ("bto-voltar.png"), :class => "btnVoltar", :onclick => "history.go(-1)" %>
+	</div>
+</div>

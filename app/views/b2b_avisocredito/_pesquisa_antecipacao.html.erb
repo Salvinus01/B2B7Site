@@ -1,0 +1,94 @@
+﻿<%= form_tag nil, :name=> "formulario", :method => "get" do %>
+	<table width="100%" id="margemNegativa">
+		<tr>
+			<td align="center" height="40" class="tittab7"><input type="checkbox" id="CheckboxPrincipal" name="CheckboxPrincipal" onClick="SelecionarTodos();" /></td>
+			<td align="center" class="tittab7">Número Aviso</td>
+			<td align="center" class="tittab7">Empresa Pagadora</td>
+			<td align="center" class="tittab7">Vencimento</td>
+			<td align="center" class="tittab7">Valor Bruto</td>
+			<td align="center" class="tittab7">Desconto</td>
+			<td align="center" class="tittab7">Abatimento</td>
+			<td align="center" class="tittab7">Devolução</td>
+			<td align="center" class="tittab7">Abatimento de Crédito</td>
+			<td align="center" class="tittab7">Valor Líquido</td>
+			<!-- <td align="center" class="estilo3">Data Antecip.</td>
+			<td align="center" class="estilo3">Valor Antecip.</td>
+			<td align="center" class="estilo3">Tam. Arquivo (Bytes)</td> -->
+			<td align="center" class="tittab7">Domicílio</td>
+		</tr>
+		<% sClasse = "borderTableResul1" %>
+		<% @pesquisa.each do |p| %>
+			<tr>
+				<td align="center" class="<%= sClasse %>" ><input type="checkbox"  name="Checkbox[]" id="Checkbox" value="<%= p.NumAviso %>" /></td>
+				<td align="center" class="<%= sClasse %>" nowrap><%= p.NumAviso %></td>
+				<td align="center" class="<%= sClasse %>" nowrap><%= p.NomeEmpresaPagadora %></td>
+				<td align="center" class="<%= sClasse %>" nowrap>
+					<%= if !p.DataVencimento.blank?
+						p.DataVencimento.strftime("%d/%m/%Y")
+					end %>
+				</td>
+				<td align="center" class="<%= sClasse %>" nowrap>
+					<% if p.VlrTotalBruto != nil %>
+						R$ <%= "%.2f" % p.VlrTotalBruto %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>" nowrap>
+					<% if p.VlrTotalDescontos != nil %>
+						R$ <%= "%.2f" % p.VlrTotalDescontos %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>" nowrap>
+					<% if p.VlrTotalAbatimentos != nil %>
+						R$ <%= "%.2f" % p.VlrTotalAbatimentos %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>" nowrap>
+					<% if p.VlrTotalDevolucoes != nil %>
+						R$ <%= "%.2f" % p.VlrTotalDevolucoes %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>" nowrap>
+					<% if p.VlrTotalAbatimentoCredito != nil %>
+						R$ <%= "%.2f" % p.VlrTotalAbatimentoCredito %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>" nowrap>
+					<% if p.VlrTotalLiquido != nil %>
+						R$ <%= "%.2f" % p.VlrTotalLiquido %>
+					<% end %>
+				</td>
+				<!-- <td align="center" class="bgtab1" nowrap> &nbsp; </td>
+				<td align="center" class="bgtab1" nowrap> &nbsp; </td>
+				<td align="center" class="bgtab1" nowrap> &nbsp; </td> -->
+				<td align="center" class="<%= sClasse %>" nowrap><%= p.RefAdicionais %></td>
+				<% if sClasse == "borderTableResul1"
+					sClasse = "borderTableResul2"
+				else
+					sClasse = "borderTableResul1"
+				end %>
+			</tr>
+		<% end %>
+	</table>
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="distanciaBtn">
+		<tr>
+			<td class="link" width="50%">
+				<%= submit_tag "Visualizar", :onclick => "return ValidaNroAviso(); return false", :class=>"visualizarSubmit" %>
+				<%= submit_tag "Imprimir", :class=>"imprimirSubmit", :onclick => "return ValidaNenhumAviso(); return false" %>
+				<!--<%= submit_tag "Download", :class=>"estilo4", :onclick => "return ValidaNenhumAviso();" %>
+				<%= submit_tag "Calcular Antecipação", :onclick => "return ValidaNenhumAviso();", :class=>"estilo4" %>-->
+			</td>
+			<td align="right" class="digg_pagination">
+				<% if B2bAvisocredito.last_page_number >0 %>
+					<%= will_paginate @pesquisa, :previous_label => "< Anterior", :next_label => "Próximo >" if @pesquisa.respond_to? :total_pages %>
+				<% else %>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+
+	<div class="texto1">
+		Documento para simples conferência, sem valor jurídico.<br />
+		Obs.: Valores sujeitos a alterações até a data de vencimento.
+	</div>
+<% end %>

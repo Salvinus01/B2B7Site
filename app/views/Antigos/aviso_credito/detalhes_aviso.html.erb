@@ -1,0 +1,340 @@
+﻿<script type="text/javascript">
+	$(document).ready(function() {
+	
+	  	var aba = new JTabControl("divFora",1000,1000);
+		aba.addTab("divDentro1", "&nbsp;Nota Fiscal&nbsp;");
+		aba.addTab("divDentro2", "&nbsp;Nota Fiscal Devolução&nbsp;");
+		aba.addTab("divDentro3", "&nbsp;Abatimento de Crédito&nbsp;&nbsp;");
+
+		if ($.cookie('tabSel') != null && $.cookie('tabSel') !=""){
+			changeJTabControl($.cookie('tabSel'));
+			$.cookie('tabSel', null);
+		}
+
+		  $('a').click(function(event){
+			$.cookie('tabSel', tabSel);
+		  });
+		  	  
+	});
+
+</script>
+
+
+<%= form_tag nil, :method=>"get" do %>	
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="titpag">
+				<% @origem.each do |s| %>
+					<% if params[:id][-1] == "x" %>
+						Aviso de Crédito Realizado
+					<% else %>
+						Aviso de Crédito Previsto / Antecipação
+					<% end %>
+				<% end %>
+			</td>
+			<td align="right"></td>
+		</tr>
+		<tr>
+		  <td colspan="2">&nbsp;</td>
+		</tr>
+	</table>
+	<%= params[:id] %>			
+	<table width="90%" border="10" cellpadding="0" cellspacing="0" class="bgtab">
+		<tr align="left">
+			<td colspan="8" class="tittab1">Dados</td>
+		</tr>			
+		<tr>
+			<td colspan="8" nowrap>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr align="left">
+						<td colspan="7" nowrap class="idcampo"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+					</tr>
+					<% @avisocredito.each do |av| %>			
+						<tr>
+							<td align="right" class="idcampo" nowrap>Banco:</td>
+							<td align="left" class="input" nowrap><%= av.Banco %></td>
+							<td align="right" class="idcampo" nowrap>Agência:</td>
+							<td align="left" class="input" nowrap><%= av.Agencia %></td>
+							<td align="right" class="idcampo" nowrap>Conta:</td>
+							<td align="left" class="input" nowrap><%= av.Conta %></td>
+							<td align="right" class="idcampo" nowrap>Contrato Nº:</td>
+							<td align="left" class="input" nowrap><%= av.NumContrato %></td>
+						</tr>
+					<% end %>			
+					<tr>
+						<td align="center" class="idcampo" colspan=8><hr width="95%" size=2 color='#4F4F4F'></hr></td>
+					</tr>
+					<% @avisocredito.each do |av| %>				
+						<tr>
+							<td align="right" class="idcampo" nowrap>Empresa Pagadora:&nbsp;</td>
+							<td align="left" class="input" colspan = 6><%= av.EmpresaPagadora %></td>													
+						</tr>				
+						<tr>
+							<td align="right" class="idcampo" nowrap>Nº aviso:&nbsp;</td>
+							<td align="left" class="input" colspan = 6><%= av.NumAviso %> <input type="hidden" name="numAviso" value="<%= av.NumAviso %>"/></td>													
+						</tr>							
+						<tr>
+							<td align="right" class="idcampo" nowrap>Vencimento:&nbsp;</td>
+							<td align="left" class="input" colspan = 6><%= av.DataVencimento %></td>													
+						</tr>							
+						<tr>
+							<td align="right" class="idcampo" nowrap>Abatimento Crédito:&nbsp;</td>
+							<td align="left" class="input" colspan = 6>
+							<% if av.VlrAbatimentoCredito != nil %>
+								R$ <%= "%.2f" % av.VlrAbatimentoCredito %>
+							<% end %>
+							</td>
+						</tr>							
+						<tr>
+							<td align="right" class="idcampo" nowrap>Bruto:&nbsp;</td>
+							<td align="left" class="input" colspan = 6>
+							<% if av.VlrBruto != nil %>
+								R$ <%= "%.2f" % av.VlrBruto %>
+							<% end %>
+							</td>													
+						</tr>							
+						<tr>
+							<td align="right" class="idcampo" nowrap>Devolução:&nbsp;</td>
+							<td align="left" class="input" colspan = 6>
+							<% if av.VlrDevolucao != nil %>
+								R$ <%= "%.2f" % av.VlrDevolucao %>
+							<% end %>
+							</td>													
+						</tr>							
+						<tr>
+							<td align="right" class="idcampo" nowrap>Desconto:&nbsp;</td>
+							<td align="left" class="input" colspan = 6>
+							<% if av.VlrDesconto != nil %>
+								R$ <%= "%.2f" % av.VlrDesconto %>
+							<% end %>
+							</td>													
+						</tr>						
+						<tr>
+							<td align="right" class="idcampo" nowrap>Abatimento:&nbsp;</td>
+							<td align="left" class="input" colspan = 6>
+							<% if av.VlrAbatimento != nil %>
+								R$ <%= "%.2f" % av.VlrAbatimento %>
+							<% end %>
+							</td>													
+						</tr>							
+						<tr>
+							<td align="right" class="idcampo" nowrap>Líquido:&nbsp;</td>
+							<td align="left" class="input" colspan = 6 nowrap>
+							<% if av.VlrLiquido != nil %>
+								R$ <%= "%.2f" % av.VlrLiquido %>
+							<% end %>
+							</td>													
+						</tr>
+					<% end %>
+					<tr>
+						<td width="89"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+						<td><img src="/imagens/transparente.gif" width="10" height="10"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table><br /><br />		
+
+	<div id="divFora" width="10%">
+		<div id="divDentro1"><br/>
+						
+			<table width="98%" border="0" cellpadding="0" cellspacing="0" class="bgtabZ" align="center">		
+				<tr align="center">
+					<td colspan="9" class="tittab1">Nota Fiscal</td>
+				</tr>							
+				<tr>
+					<td align="center" class="tittab1">Número</td>
+					<td align="center" class="tittab1">Série</td>
+					<td align="center" class="tittab1">Emissão</td>
+					<td align="center" class="tittab1">Recebimento</td>
+					<td align="center" class="tittab1">Loja</td>
+					<td align="center" class="tittab1">/CGC</td>
+					<td align="center" class="tittab1">Bruto</td>
+					<td align="center" class="tittab1">Desconto</td>
+					<td align="center" class="tittab1">Abatimento</td>   	     
+				</tr>
+				<% @notasfiscais.each do |nota| %>			
+					<tr>
+						<td align="center" nowrap class="bgtab1">
+							<% if nota.VlrDesconto == "" or nota.VlrDesconto == nil %>
+								<%= nota.NumNF %>
+							<% else %>
+								<% if params[:id] == nota.Aviso.to_s + "x" %>
+									<%= link_to nota.NumNF, :controller=>"b2b_notafiscaldivergente", :action=>"nota_divergente", :id=>nota.NumNF + "x" %>
+								<% else %>
+									<%= link_to nota.NumNF, :controller=>"b2b_notafiscaldivergente", :action=>"nota_divergente", :id=>nota.NumNF %>
+								<% end %>
+							<% end %>
+						</td>
+						<td align="center" nowrap class="bgtab1"><%= nota.SerieNF %></td>
+						<td align="center" class="bgtab1"><%= nota.DataEmissao %></td>
+						<td align="center" class="bgtab1"><%= nota.DataRecebimento %></td>
+						<td align="center" class="bgtab1"><%= nota.CodLoja %></td>
+						<td align="center" class="bgtab1"><%= nota.CGC %></td>
+						<td align="center" class="bgtab1">
+							<% if nota.VlrBruto %>
+								R$ <%= "%.2f" % nota.VlrBruto %>
+							<% end %>
+						</td>
+						<td align="right" class="bgtab1">
+							<% if params[:id] == nota.Aviso.to_s + "x" %>
+								<% if nota.VlrDesconto %>
+									R$ <%= link_to nota.VlrDesconto, :controller=>"b2b_notafiscal", :action=>"abatimentos_descontos", :id=>nota.NumNF + "xa" %>
+								<% end %>
+							<% else %>
+								<% if nota.VlrDesconto %>
+									R$ <%= link_to nota.VlrDesconto, :controller=>"b2b_notafiscal", :action=>"abatimentos_descontos", :id=>nota.NumNF + "a"  %>
+								<% end %>
+							<% end %>
+						</td>
+						<td align="right" class="bgtab1">
+							<% if params[:id] == nota.Aviso.to_s + "x" %>
+								<% if nota.VlrAbatimento %>
+									R$ <%= link_to nota.VlrAbatimento, :controller=>"b2b_notafiscal", :action=>"abatimentos_descontos", :id=>nota.NumNF + "xb" %>
+								<% end %>
+							<% else %>
+								<% if nota.VlrAbatimento %>
+									R$ <%= link_to nota.VlrAbatimento, :controller=>"b2b_notafiscal", :action=>"abatimentos_descontos", :id=>nota.NumNF + "b" %>
+								<% end %>
+								<% end %>
+						</td>        
+					</tr>
+				<% end %>	
+			</table><br />
+				
+			<div style=float:right class="digg_pagination">
+				<% if B2bAvisocredito.last_page_number >0 %>
+					<%= will_paginate @notasfiscais, :previous_label => "< Anterior", :next_label => "Próximo >" if @notasfiscais.respond_to? :total_pages %>
+				<% else %>
+				<% end %>
+			</div>
+		</div>
+			
+		<div id="divDentro2"><br/>
+				
+			<table width="98%" border="0" cellpadding="0" cellspacing="0" class="bgtabZ" align="center">
+				<tr align="center">
+					<td colspan="6" class="tittab1">Nota Fiscal de devolução</td>
+				</tr>						
+				<tr>
+					<td align="center" class="tittab1">Número</td>
+					<td align="center" class="tittab1">Série</td>
+					<td align="center" class="tittab1">Data</td>
+					<td align="center" class="tittab1">Loja</td>
+					<td align="center" class="tittab1">Bruto</td>
+					<td align="center" class="tittab1">Crédito devolução</td>				    
+				</tr>
+				<% @notasfiscaisdevolucao.each do |nfd| %>	
+					<tr>
+						<td align="center" nowrap class="bgtab1"><%= nfd.NumNFDevolucao %></td>
+						<td align="center" nowrap class="bgtab1"><%= nfd.SerieNF %></td>
+						<td align="center" class="bgtab1"><%= nfd.DataEmissao %></td>
+						<td align="center" class="bgtab1"><%= nfd.CodLoja %></td>
+						<td align="right" class="bgtab1">
+							<% if nfd.VlrBruto != nil %>
+								R$ <%= "%.2f" % nfd.VlrBruto %>
+							<% end %>
+						</td>
+						<td align="right" class="bgtab1">
+							<% if params[:id] == nfd.Aviso.to_s + "x" %>
+								<% if nfd.VlrCreditoDevolucao != nil %>
+									R$ <%= link_to nfd.VlrCreditoDevolucao, :controller=>"b2b_notafiscaldevolucao", :action=>"credito_devolucao", :id=>nfd.NumNFDevolucao + "x" %>
+								<% end %>
+							<% else %>
+								<% if nfd.VlrCreditoDevolucao != nil %>
+									R$ <%= link_to nfd.VlrCreditoDevolucao, :controller=>"b2b_notafiscaldevolucao", :action=>"credito_devolucao", :id=>nfd.NumNFDevolucao %>
+								<% end %>
+							<% end %>
+						</td>				       
+					</tr>
+				<% end %>
+			</table><br />
+			
+			<div style=float:right class="digg_pagination">
+				<% if B2bAvisocredito.last_page_number >0 %>
+				<%= will_paginate @notasfiscaisdevolucao if @notasfiscaisdevolucao.respond_to? :total_pages %>
+				<% else %>
+				<% end %>
+			</div>
+		</div>
+		
+		<div id="divDentro3"><br/>
+						
+			<table width="98%" border="0" cellpadding="0" cellspacing="0" class="bgtabZ" align="center">
+				<tr align="center">
+					<td colspan="6" class="tittab1">Abatimento de crédito</td>
+				</tr>						
+				<tr>
+					<td align="center" class="tittab1">Número</td>
+					<td align="center" class="tittab1">Desdobro</td>
+					<td align="center" class="tittab1">Cód. Loja</td>
+					<td align="center" class="tittab1">Código</td>
+					<td align="center" class="tittab1">Descrição</td>
+					<td align="center" class="tittab1">Valor</td>				    
+				</tr>
+				<% @abatimentocredito.each do |abt| %>			
+					<tr>
+						<td align="center" nowrap class="bgtab1"><%= abt.NumAbatimento %></td>
+						<td align="center" nowrap class="bgtab1"><%= abt.Desdobro %></td>
+						<td align="center" class="bgtab1"><%= abt.CodLoja %></td>
+						<td align="center" class="bgtab1"><%= abt.codigo %></td>
+						<td align="left" class="bgtab1"><%= abt.Descricao %></td>
+						<td align="right" class="bgtab1">
+							<% if abt.VlrAbatimentoCredito != nil %>
+								R$ <%= "%.2f" % abt.VlrAbatimentoCredito %>
+							<% end %>
+						</td>				       
+					</tr>
+				<% end %>
+			</table><br/>
+			
+			<div style=float:right class="digg_pagination">
+				<% if B2bAvisocredito.last_page_number >0 %>
+				<%= will_paginate @abatimentocredito if @abatimentocredito.respond_to? :total_pages %>
+				<% else %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	
+	<br /><br />
+	<table width="55%" border="0" cellpadding="0" cellspacing="0" class="bgtabZ">
+		<tr align="center">
+			<td colspan="3" class="tittab1" nowrap>Resumo dos Valores de abatimentos, 
+			Descontos e Abatimentos no crédito (Contrato)</td>
+		</tr>
+				
+		<tr>
+			<td align="center" class="tittab1">Código</td>
+			<td align="center" class="tittab1">Descrição</td>
+			<td align="center" class="tittab1">Valor</td>			    
+		</tr>
+		<% @resumovalores.each do |res| %>
+			<tr>
+				<td align="center" nowrap class="bgtab1"><%= res.CodResumo %></td>
+				<td align="center" nowrap class="bgtab1"><%= res.Descricao %></td>
+				<td align="right" class="bgtab1">
+					<% if res.VlrResumo != nil %>
+						R$ <%= "%.2f" % res.VlrResumo %>
+					<% end %>
+				</td>			       
+			</tr>
+		<% end %>
+	</table><br /><br />
+	
+	<table >
+		<% @mensagem.each do |m| %>
+			<tr>
+				<td class="txt2"><%= m.Mensagem %></td>
+			</tr>
+			
+			<tr>
+				<td></td>
+			</tr>
+		<% end %>
+	</table><br />
+
+	<div style="float:left"><%= submit_tag "Imprimir", :class=>"semclicar" %>&nbsp;</div>
+	<div style="float:left"><%= submit_tag "Download", :class=>"semclicar" %>&nbsp;</div>
+<% end %>
+	<div style="float:left"><%= button_to "Voltar", :back, :class=>"semclicar" %></div>&nbsp;

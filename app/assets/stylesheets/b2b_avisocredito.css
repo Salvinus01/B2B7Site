@@ -1,0 +1,596 @@
+﻿/* // Place all the styles related to the b2b_AvisoCredito controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/ */
+
+/* Estilos para ajustes de body e distancias entre "frames" */
+body {
+	background-image: url('fundo.png');
+	background-repeat: repeat;
+	scrollbar-3d-light-color: #fff;
+	scrollbar-arrow-color: #999;
+	scrollbar-base-color: #bbb;
+	scrollbar-dark-shadow-color: #fff;
+	scrollbar-face-color: #eee;
+	scrollbar-highlight-color: #f4f4f4;
+	scrollbar-shadow-color: #bbb;
+}
+
+.distanciaBtn{
+	margin:25px 0px
+}
+
+.ajusteOffset{
+	position:relative;
+	top:-27px;
+}
+
+#margemNegativa{
+	margin-top:-10px
+}
+
+.ajusteFrame{
+	overflow:auto;
+	margin-bottom:15px;
+	width:98%;
+	margin-left:auto;
+	margin-right:auto
+}
+
+/* Estilos para mostrar (ou nao) renderizacoes de resultado de pesquisas */
+.Esconder {
+	display: none;
+}
+
+.Mostrar {
+	display:block
+}
+
+/* Estilos para textos simples, tanto de mensagens como "nao foram encontrados resultados", como para textos de rodape */
+.texto1{
+	font-family: Calibri, sans-serif;
+	font-size: 13px;
+	color: #7D7F99;
+	text-align: left;
+}
+
+.txt {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+   	font-style: normal;
+	color: #666666;
+}
+
+/* Estilos para tabelas */
+table {
+	border-collapse: collapse;
+}
+
+.borda, .borda th {
+	border-collapse: collapse;
+	border:1px solid black;
+}
+
+.bgtab {
+	border: 1px solid #ebebeb;
+}
+
+.table1{
+	margin:9px 0px 16px 0px;
+}
+
+.table2{
+	font-family: Calibri, sans-serif;
+	font-size:18px;
+	font-weight:bold;
+}
+
+.tittab7{
+	background-color: #6c838c;
+	border: 1px solid white;
+	height: 40px;
+	color: #fff;
+	font-family: Calibri, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+.tittab9{
+	background-color: rgb(120, 146, 153);
+	border-left: 1px solid #fff;
+	border-right: 1px solid #fff;
+	height: 40px;
+	color: #fff;
+	font-family: Calibri, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+/* Estilos tabelas com zebrado */
+.borderTableResul1, .borderTableResul2{
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #220878;
+	border-right: 1px solid #fff;
+	padding: 2px 3px 2px 5px;
+	border-left: 1px solid #fff;
+}
+
+.borderTableResul1{
+	background-color: #FFFFFF;
+}
+
+.borderTableResul2{
+	background-color: #e9e9e9;
+}
+
+table.bgtabZ  tr:nth-child(4n+2), table.bgtabZ  tr:nth-child(4n+3) {
+	border-bottom: 1px solid #F8F8F8;
+	background-color: #F8F8F8;
+}
+
+table.bgtabZ  tr:nth-child(4n), table.bgtabZ  tr:nth-child(4n+1) {
+	border-bottom: 1px solid #FFFFFF;
+	background-color: #FFFFFF;
+}
+
+table.bgtabZe tr:nth-child(2n+1){
+	border-bottom: 1px solid #F8F8F8;
+	background-color: #F8F8F8;
+}
+
+table.bgtabZe  tr:nth-child(2n){
+	border-bottom: 1px solid #FFFFFF;
+	background-color: #FFFFFF;
+}
+
+/* Estilo para botoes no novo layout */
+.btnVoltar, .btnPesquisar{
+	border:none;
+	background:none;
+	margin:25px 0px;
+	cursor: pointer;
+}
+
+.btnVoltar{
+	width:58px;
+	height:22px;
+}
+
+.btnPesquisar{
+	width:100px;
+	height:25px;
+}
+
+.voltarSubmit{
+	background-image: url("bto-Voltar.png");
+	width:38px;
+}
+
+.imprimirSubmit{
+	background-image: url("bto-Imprimir.png");
+	min-width: 58px;
+}
+
+.cancelarSubmit{
+	background-image: url("bto-Cancelar.png");
+	min-width: 60px;
+}
+
+.visualizarSubmit{
+	background-image: url("bto-Visualizar.png");
+	min-width: 67px;
+}
+
+.downloadSubmit{
+	background-image: url("bto-Download.png");
+	min-width: 67px;
+}
+
+.cancelarNFSubmit{
+	background-image: url("bto-CancelarNF.png");
+	min-width: 132px;
+}
+
+.voltarSubmit, .imprimirSubmit, .cancelarSubmit,
+.visualizarSubmit, .downloadSubmit, .cancelarNFSubmit{
+	background-repeat:no-repeat;
+	background-color: white;
+	border:none;
+	color: transparent;
+	min-height: 22px;
+	cursor: pointer;
+}
+
+/* Estilos para elementos (inputs[text], select, fieldset, etc)*/
+.idcampo {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: bold;
+    color: #666666;
+	padding: 2px 3px 2px 5px;
+}
+
+.campo {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    color: #666666;
+}
+
+.input {
+    font-family: Calibri, sans-serif;
+    font-size: 13px;
+    color: #333;
+	padding-right: 5px;
+}
+
+.titFieldset{
+	display:block;
+	padding:3px 12px;
+	background-color:#EE7942;
+	color:#fff;
+	font-family:Arial;
+	font-weight:bold;
+	font-size:13px;
+}
+
+/* Estilos para o cabecalho de localizacao */
+.titpag2{
+	width:100%;
+	background-color:rgb(120, 146, 153);
+	filter:alpha(opacity=15);
+	-moz-opacity: .15;
+	margin:25px auto;
+	clear:both;
+	min-width:805px;
+}
+
+.titpag2 .contMinWidth4{
+	height:43px;
+}
+
+div.titpag2 .nomeMenu{
+	padding:5px;
+	color:#6C6D71;
+}
+
+.nomeSubmenu{
+	padding:5px;
+	text-decoration: underline;
+}
+
+.conteudo1{
+	position:relative;
+	padding:5px 15px;
+	width:800px
+}
+
+.conteudo2{
+	float:left;
+	position:relative;
+	padding:5px 15px;
+	clear:left;
+}
+
+/* Estilos para apresentaçao de conteudos e redimensionamento correto no novo layout */
+.contMinWidth, .contMinWidth4{
+	width: expression( document.body.clientWidth < 801 ? '800px' : '100%' );
+}
+
+.contMinWidth2, .contMinWidth5{
+	width: expression( document.body.clientWidth < 601 ? '600px' : 'auto' );
+}
+
+.contMinWidth3, .contMinWidth6{
+	width: expression( document.body.clientWidth < 401 ? '400px' : 'auto' );
+}
+
+.contMinWidth{
+	min-width:800px;
+}
+
+.contMinWidth2{
+	min-width:600px;
+}
+
+.contMinWidth3{
+	min-width:400px;
+}
+
+.contMinWidth7{
+	min-width:830px;
+	width:100%
+}
+
+/* Estilo para paginacao */
+.digg_pagination {
+	font-family: Calibri, sans-serif;
+	cursor: default;
+}
+
+.digg_pagination  a, .digg_pagination  span, .digg_pagination  em {
+    padding: 0.2em 0.5em;
+}
+
+.digg_pagination  .disabled {
+	display: none;
+}
+
+.digg_pagination   .current {
+    font-style: normal;
+    font-weight: bold;
+    background: #6C838C;
+    color: white;
+	font-size: 13px;
+    border: 1px solid #6C838C;
+}
+
+.digg_pagination  a {
+    text-decoration: none;
+    color: #6C838C;
+    border: 1px solid #6C838C;
+	background: white;
+	font-size: 13px;
+}
+
+.digg_pagination  a:hover, .digg_pagination  a:focus {
+    color: white;
+    border-color: white;
+	background: #6C838C;
+}
+
+/* Estilo para apresentacao e navegacao entre abas */
+#divFora{
+	width:100%;
+	height:15%;
+}
+
+.bordaAbas{
+	border-color:#6c838c;
+	border-style:solid;
+	border-width:0px 4px 4px 4px;
+}
+
+div.jAbaContainer { padding:3px; min-width:800px}
+div.jAbaHeader { font-size: 18px; }
+div.jAbaBody { width:100%;}
+
+div.jAbaHeader .jTabHeaderHidden {
+	cursor: pointer;
+	font-family: Calibri, sans-serif;
+	font-size: 15px;
+	color: #fff;
+	padding-top: 4px;
+	padding-bottom: 1px;
+	padding-left: 4px;
+	padding-right: 4px;
+	background-color: #6C838C;
+	border-left: #fafafa 1px solid;
+	border-right: #fafafa 1px solid;
+	border-top: #fafafa 1px solid;
+}
+
+div.jAbaHeader .jTabHeaderInline {
+	cursor: pointer;
+	font-family: Calibri, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	color: #fff;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+	background-color: #6C838C;
+	border-left: #6C838C 2px solid;
+	border-right: #6C838C 2px solid;
+	border-top: #6C838C 2px solid;
+	border-bottom: #6C838C 2px solid;
+}
+
+div.jAbaBody .jTabBodyHidden { display: none;}
+div.jAbaBody .jTabBodyInline{
+	display: inline;
+	width:200px;
+	height:200px;
+}
+
+.estilo14 {
+	background-color: #6C838C;
+	height: 6px;
+	border-top:2px solid white
+}
+
+/* Estilos auxiliares e/ou autoexplicativos */
+#fundo {
+    background: #fff;;
+}
+
+.fundobranco {background-color: #fff;}
+
+.lupa {
+	height: 29px;
+	width: 27px;
+}
+
+#idDataInicial, #idDataFinal{
+	margin-right:7px;
+}
+
+.cor1 {
+	color: green;
+}
+
+.cor2 {
+	color: red;
+}
+
+.cor3 {
+	color: blue;
+}
+
+#prop1{
+	background-color: #f5f5f5;
+	border: 1px solid white;
+}
+
+#prop2{
+	background-color: #FFFFFF;
+}
+
+#prop3{
+	margin-top: 10px;
+	margin-left: 7px;
+	margin-right: 7px;
+}
+
+.negrito{
+	font-weight: bold;
+	font-family: Calibri, sans-serif;
+}
+
+/* Estilos a conferir */
+.estilo0{
+	padding: 5px;
+	font-size: 10pt;
+	font-family: Calibri, sans-serif;
+	background-color: #E8E8E8;
+	color: #282871;
+}
+
+.estilo1{
+	text-align: left;
+	background-color: #F4F4F4;
+	border-bottom: 2px solid #fff;
+	padding: 5px;
+	font-size: 13px;
+	color: #B22828;
+}
+
+.estilo1 a{
+	text-decoration: none;
+	color: #B22828;
+}
+
+.estilo2 {
+	background-color: #F5F5F5;
+}
+
+.estilo3 {
+	font-family: Calibri, sans-serif;
+	color: #fff;
+	border: 1px solid #fff;
+	font-size: 13px;
+	font-weight: bold;
+	background-color: #6C838C;
+}
+
+.estilo4 {
+	text-align: right;
+	font-size: 13px;
+	background-color: #E8E8E8;
+	border:0px;
+
+}
+
+.estilo4:hover {
+	text-align: right;
+	font-size: 13px;
+	background-color: #E8E8E8;
+	border:0px;
+    text-decoration: underline;
+}
+
+.estilo5 {
+	color: #6C838C;
+	font-size: 13px;
+	font-weight: bold;
+	font-family: Calibri, sans-serif;
+	padding-left: 10px;
+	text-decoration:none;
+}
+
+.estilo6{
+	background-color: #fff;
+	border-bottom: 1px solid #fff;
+}
+
+.estilo7{
+	border: 1px solid #fff;
+	background: #ebebeb;
+}
+
+.estilo8 td{
+	border: 0px;
+	color: #6C838C;
+	font-size: 13px;
+	font-family: Calibri, sans-serif;
+}
+
+.estilo9{
+	border: 0px;
+	color: black;
+	font-size: 15px;
+	font-family: Calibri, sans-serif;
+	margin-bottom: 10px;
+}
+
+.estilo10{
+	border: 1px solid white;
+	color: #6C838C;
+	font-size: 13px;
+	font-family: Calibri, sans-serif;
+	margin: 8px;
+}
+
+.estilo11{
+	color: black;
+	font-size: 13px;
+	font-family: Calibri, sans-serif;
+	padding-left: 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.estilo12{
+	color: black;
+	font-family: Calibri, sans-serif;
+	font-size: 18px;
+}
+
+.estilo13{
+	text-align: left;
+	background-color: #F4F4F4;
+	border-bottom: 2px solid #fff;
+	padding: 5px;
+	font-size: 15px;
+	color: #B22828;
+	font-weight: bold;
+	font-family: Calibri, sans-serif;
+}
+
+.bgtab1 .divergente{
+	padding-bottom: 15px;
+}
+
+.bgtabZ .detalhe .bgtab1 .divergente .estilo7 tr{
+	background: #000;
+	border: 0px;
+	text-align:center;
+}
+
+.bgtabZ .estilo5 {
+	border: 1px solid #fff;
+	background: #DADADA;
+	padding-left: 0px;
+}
+
+.bgtab1 {
+	font-family: Calibri, sans-serif;
+	font-size: 13px;
+	padding: 5px;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #fff;
+	border-top: 1px solid #fff;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+}

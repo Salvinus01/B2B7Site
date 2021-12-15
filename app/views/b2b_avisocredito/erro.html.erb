@@ -1,0 +1,24 @@
+﻿<div class="titpag2">
+	<div class="conteudo1">
+		<table class="table2">
+			<tr>
+				<td nowrap class="nomeMenu">Financeiro</td>
+				<td nowrap class="nomeMenu">::</td>
+				<td nowrap class="nomeSubmenu">Detalhe do Aviso <% @origem.each do |s| %><%= s.NumAviso %><input type=hidden value="<%= s.NumAviso %>" name="nmNumAviso" /><% end %></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<fieldset class="contMinWidth" id="fundo">
+	<legend><span class="titFieldset">Dados</span></legend>
+	<table width="100%" border="0" class="table1">
+		<tr>
+			<td align="center" class="txt" >Tempo de Conexão Esgotado</td>
+		</tr>
+	</table>
+</fieldset>
+
+<div align="left" class="contMinWidth">
+	<%= image_submit_tag ("bto-voltar.png"), :class => "btnVoltar", :onclick => "location.href='http://desen.edivan.com.br/dominios/b2b7/login.asp'" %>
+</div>

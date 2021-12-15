@@ -1,0 +1,64 @@
+﻿<%= form_tag nil, :method => "get" do %>
+	<div class="Esconder" id="mensagem">
+	<% if @pesquisa == [] %><br /><br />			
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tittab4">
+			<tr>
+			<td align="center">Não foram encontrados resultados para sua pesquisa.</td>
+			</tr>
+		</table>
+	<% else %>
+	</div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bgtab0">
+			<tr> 
+				<td nowrap>	
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr> 
+							<td align="center" class="tittab2">&nbsp;</td>
+							<td align="center" class="tittab2">N° NF</td>
+							<td align="center" class="tittab2">Série</td>
+							<td align="center" class="tittab2">Emissão</td>
+							<td align="center" class="tittab2">Entrega</td>
+							<td align="center" class="tittab2">Merc.</td>
+							<td align="center" class="tittab2">IPI</td>
+							<td align="center" class="tittab2">Enc.</td>
+							<td align="center" class="tittab2">Frete</td>
+							<td align="center" class="tittab2">ICMS</td>
+							<td align="center" class="tittab2">Total</td>
+						</tr> 
+							
+						<% @pesquisa.each do |p| %>
+							<tr> 
+								<td align="center" height="20" class="bgtab1"><input type="radio" name="idRadio1" value="<%= p.NumNFDevolucao %>"></td>
+								<td align="center" class="bgtab1"><%= p.NumNFDevolucao %></td>
+								<td align="center" class="bgtab1"><%= p.SerieNF %></td>
+								<td align="center" class="bgtab1"><%= p.DataEmissao %></td>
+								<td align="center" class="bgtab1"><%= p.DataEntrega %></td>
+								<td align="center" class="bgtab1"><%= "%.2f" % p.VlrTotalProdutos %></td>
+								<td align="center" class="bgtab1"><%= "%.2f" % p.VlrTotalIPI %></td>
+								<td align="center" class="bgtab1"><%= "%.2f" % p.OutrasDespesas %></td>
+								<td align="center" class="bgtab1"><%= "%.2f" % p.VlrFrete %></td>
+								<td align="center" class="bgtab1"><%= "%.2f" % p.VlrICMS %></td>
+								<td align="center" class="bgtab1"><%= "%.2f" % p.VlrBruto %></td>
+							</tr>
+						<% end %>
+					</table>
+				</td>
+			</tr>      
+		</table><br />
+		
+		<div style=float:right class="digg_pagination">
+			<% if B2bAvisocredito.last_page_number >0 %>
+				<%= will_paginate @pesquisa, :previous_label => "< Anterior", :next_label => "Próximo >" if @pesquisa.respond_to? :total_pages %>
+			<% else %>
+			<% end %>
+		</div><br />
+		
+		<table align="left" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td><div style="float:left"><%= submit_tag "Visualizar", :class=>"semclicar" %></div>&nbsp;</td>
+				<td><div style="float:left"><%= submit_tag "Imprimir", :class=>"semclicar" %></div>&nbsp;</td>
+				<td><div style="float:left"><%= submit_tag "Download", :class=>"semclicar" %></div>&nbsp;</td>				
+			</tr>
+		</table>
+	<% end %>
+<% end %>

@@ -1,0 +1,260 @@
+﻿<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="titpag">Nota Fiscal de devolução</td>
+		<td align="right"></td>
+	</tr>			
+</table><br />
+
+<table width="80%" border="10" cellpadding="0" cellspacing="0" class="bgtab">
+	<tr align="left">
+		<td colspan="8" class="tittab1">Dados do Emitente:</td>
+	</tr>
+
+	<tr>
+		<td nowrap>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td colspan="5" nowrap class="idcampo"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+				</tr>
+				<% @dadosemitente.each do |e| %>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Razão Social:</td>
+						<td align="left" class="input" nowrap><%= e.RazaoSocial %></td>
+						<td align="right" class="idcampo" nowrap>Natureza da Operação:</td>
+						<td align="left" class="input" nowrap><%= e.NaturezaOperacao %></td>
+						<td align="right" class="idcampo" nowrap>&nbsp; </td>
+						<td align="left" class="input" nowrap>&nbsp; </td>							
+					</tr>
+
+					<tr>
+						<td align="right" class="idcampo" nowrap>Endereço:</td>
+						<td align="left" class="input" nowrap><%= e.Endereco %></td>
+						<td align="right" class="idcampo" nowrap>Nº Nota Fiscal:</td>
+						<td align="left" class="input" nowrap><%= e.NumNFDevolucao  %></td>
+						<td align="right" class="idcampo" nowrap>Data de Emissão:</td>
+						<td align="left" class="input" nowrap><%= e.DataEmissao %></td>							
+					</tr>
+
+					<tr>
+						<td align="right" class="idcampo" nowrap>Município:</td>
+						<td align="left" class="input" nowrap><%= e.Municipio  %></td>
+						<td align="right" class="idcampo" nowrap>Estado:</td>
+						<td align="left" class="input" nowrap><%= e.Estado  %></td>
+						<td align="right" class="idcampo" nowrap>&nbsp; </td>
+						<td align="left" class="input" nowrap>&nbsp; </td>							
+					</tr>
+				
+					<tr>
+						<td align="right" class="idcampo" nowrap>CNPJ/CPF:</td>
+						<td align="left" class="input" nowrap><%= e.CNPJ %></td>
+						<td align="right" class="idcampo" nowrap>IE:</td>
+						<td align="left" class="input" nowrap><%= e.InscricaoEstadual  %></td>
+						<td align="right" class="idcampo" nowrap>CFOP:</td>
+						<td align="left" class="input" nowrap><%= e.CFOP  %></td>							
+					</tr>						
+				<% end %>	
+				<tr>
+					<td width="89"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+					<td><img src="/imagens/transparente.gif" width="10" height="10"></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table><br />
+		
+<table width="80%" border="10" cellpadding="0" cellspacing="0" class="bgtab">
+	<tr align="left">
+		<td colspan="8" class="tittab1">Dados do Destinatário / Remetente:</td>
+	</tr>
+				
+	<tr>
+		<td nowrap>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"><br />
+				
+				<% @dadosremetente.each do |r| %>	
+					<tr>
+						<td align="right" class="idcampo" nowrap>Razão Social:</td>
+						<td align="left" class="input" nowrap><%= r.RazaoSocial %></td>
+						<td align="right" class="idcampo" nowrap>&nbsp; </td>
+						<td align="left" class="input" nowrap>&nbsp;</td>
+						<td align="right" class="idcampo" nowrap>&nbsp;</td>
+						<td align="left" class="input" nowrap>&nbsp;</td>							
+					</tr>
+						
+					<tr>
+						<td align="right" class="idcampo" nowrap>Endereço:</td>
+						<td align="left" class="input" nowrap><%= r.Endereco %></td>
+						<td align="right" class="idcampo" nowrap>Bairro:</td>
+						<td align="left" class="input" nowrap><%= r.Bairro %></td>
+						<td align="right" class="idcampo" nowrap>CEP:</td>
+						<td align="left" class="input" nowrap><%= r.CEP %></td>							
+					</tr>
+					
+					<tr>
+						<td align="right" class="idcampo" nowrap>Município:</td>
+						<td align="left" class="input" nowrap><%= r.Municipio %></td>
+						<td align="right" class="idcampo" nowrap>Estado:</td>
+						<td align="left" class="input" nowrap><%= r.Estado %></td>
+						<td align="right" class="idcampo" nowrap>Fone: </td>
+						<td align="left" class="input" nowrap><%= r.Telefone %></td>							
+					</tr>
+							
+					<tr>
+						<td align="right" class="idcampo" nowrap>CNPJ/CPF:</td>
+						<td align="left" class="input" nowrap><%= r.CNPJ %></td>
+						<td align="right" class="idcampo" nowrap>IE:</td>
+						<td align="left" class="input" nowrap><%= r.InscricaoEstadual %></td>
+						<td align="right" class="idcampo" nowrap>&nbsp;</td>
+						<td align="left" class="input" nowrap>&nbsp;</td>							
+					</tr>						
+				<% end %>			
+				<tr>
+					<td width="89"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+					<td><img src="/imagens/transparente.gif" width="10" height="10"></td>
+				</tr>
+			</table>					
+		</td>
+	</tr>
+</table><br />
+		
+<table width="80%" border="10" cellpadding="0" cellspacing="0" class="bgtab">
+	<tr align="left">
+		<td colspan="8" class="tittab1">Dados do Produto:</td>
+	</tr>						
+	<tr>
+		<td nowrap>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td align="center" class="tittab1">Código Produto</td>
+					<td align="center" class="tittab1">Descrição do(s) Produto(s)</td>
+					<td align="center" class="tittab1">Sit. Trib.</td>
+					<td align="center" class="tittab1">Unid.</td>
+					<td align="center" class="tittab1">Quant.</td>
+					<td align="center" class="tittab1">Valor Unitário</td>
+					<td align="center" class="tittab1">Valor Total</td>
+					<td align="center" class="tittab1">Alíquota ICMS</td>        
+				</tr>			
+				
+			<% @dadosproduto.each do |p| %>				
+				<tr>
+					<td align="right" class="input" nowrap><%= p.CodProduto %>&nbsp;</td>
+					<td align="left" class="input" nowrap><%= p.Descricao %></td>
+					<td align="left" class="input" nowrap><%= p.SituacaoTrib %></td>
+					<td align="left" class="input" nowrap><%= p.Unidade %></td>
+					<td align="right" class="input" nowrap><%= p.QtdNF  %></td>
+					<td align="right" class="input" nowrap><%= "%.2f" % p.VlrUnitario %></td>
+					<td align="right" class="input" nowrap><%= "%.2f" % p.CustoNF %></td>
+					<td align="right" class="input" nowrap><%= "%.2f" % p.VlrICMS %></td>							
+				</tr>		
+			<% end %>			
+				<tr>
+					<td width="89"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+					<td><img src="/imagens/transparente.gif" width="10" height="10"></td>
+				</tr>
+			</table>					
+		</td>
+	</tr>
+</table><br />
+		
+<table width="80%" border="10" cellpadding="0" cellspacing="0" class="bgtab">
+	<tr align="left">
+		<td colspan="8" class="tittab1">Cálculo do Imposto:</td>
+	</tr>
+			
+	<tr>
+		<td nowrap>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"><br />
+				
+				<% @dadosproduto.each do |p| %>			
+					<tr>
+						<td align="right" class="idcampo" nowrap>Base do cálculo ICMS:</td>
+						<td align="left" class="input" nowrap><%= "%.2f" %  p.BaseCalcICMS %></td>
+						<td align="right" class="idcampo" nowrap>Valor Total dos Produtos:</td>
+						<td align="left" class="input" nowrap><%= "%.2f" % p.CustoNF %></td>
+						<td align="right" class="idcampo" nowrap>Valor Total do IPI:</td>
+						<td align="left" class="input" nowrap><%= "%.2f" % p.VlrTotalIPI %></td>							
+					</tr>
+							
+					<tr>
+						<td align="right" class="idcampo" nowrap>Valor do ICMS:</td>
+						<td align="left" class="input" nowrap><%= "%.2f" % p.VlrICMS %></td>
+						<td align="right" class="idcampo" nowrap>Valor do Frete:</td>
+						<td align="left" class="input" nowrap><%= "%.2f" % p.VlrFrete %></td>
+						<td align="right" class="idcampo" nowrap>Valor Total da Nota:</td>
+						<td align="left" class="input" nowrap><%= "%.2f" % p.CustoNF %></td>							
+					</tr>
+					
+					<tr>
+						<td align="right" class="idcampo" nowrap>Base do cálculo ICMS Substituição:</td>
+						<td align="left" class="input" nowrap><%= "%.2f" % p.BaseCalcICMSSub  %></td>
+						<td align="right" class="idcampo" nowrap>Valor do Seguro:</td>
+						<td align="left" class="input" nowrap><%= "%.2f" % p.VlrSeguro %></td>
+						<td align="right" class="idcampo" nowrap>&nbsp;</td>
+						<td align="left" class="input" nowrap>&nbsp;</td>							
+					</tr>	
+
+					<tr>
+						<td align="right" class="idcampo" nowrap>Valor ICMS Substituição:</td>
+						<td align="left" class="input" nowrap><%= "%.2f" % p.VlrICMSSub %></td>
+						<td align="right" class="idcampo" nowrap>Outras Despesas Acessórias:</td>
+						<td align="left" class="input" nowrap><%= "%.2f" % p.OutrasDespesas %></td>
+						<td align="right" class="idcampo" nowrap>&nbsp;</td>
+						<td align="left" class="input" nowrap>&nbsp;</td>							
+					</tr>	
+				<% end %>		
+				<tr>
+					<td width="89"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+					<td><img src="/imagens/transparente.gif" width="10" height="10"></td>
+				</tr>
+			</table>					
+		</td>
+	</tr>
+</table><br />
+		
+<table width="80%" border="10" cellpadding="0" cellspacing="0" class="bgtab">
+	<tr align="left">
+		<td colspan="8" class="tittab1">Transportadora / Volumes Transportados:</td>
+	</tr>
+				
+	<tr>
+		<td nowrap>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"><br />
+				
+				<% @dadostransportadora.each do |t| %>
+					<tr>
+						<td align="right" class="idcampo" nowrap>Nome / Razão Social:</td>
+						<td align="left" class="input" nowrap><%= t.RazaoSocial %></td>
+						<td align="right" class="idcampo" nowrap>Tipo de Frete:</td>
+						<td align="left" class="input" nowrap><%= t.TipoFrete %></td>
+						<td align="right" class="idcampo" nowrap>Placa do Veículo:</td>
+						<td align="left" class="input" nowrap><%= t.PlacaVeiculo %></td>							
+					</tr>
+
+					<tr>
+						<td align="right" class="idcampo" nowrap>UF:</td>
+						<td align="left" class="input" nowrap><%= t.UF %></td>
+						<td align="right" class="idcampo" nowrap>CNPJ:</td>
+						<td align="left" class="input" nowrap><%= t.CNPJ %></td>
+						<td align="right" class="idcampo" nowrap>&nbsp;</td>
+						<td align="left" class="input" nowrap>&nbsp;</td>							
+					</tr>
+					
+					<tr>
+						<td align="right" class="idcampo" nowrap>Peso Bruto:</td>
+						<td align="left" class="input" nowrap><%= t.PesoBruto %></td>
+						<td align="right" class="idcampo" nowrap>Peso Líquido:</td>
+						<td align="left" class="input" nowrap><%= t.PesoLiquido %></td>
+						<td align="right" class="idcampo" nowrap>&nbsp;</td>
+						<td align="left" class="input" nowrap>&nbsp;</td>							
+					</tr>
+				<% end %>	
+				<tr>
+					<td width="89"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+					<td><img src="/imagens/transparente.gif" width="10" height="10"></td>
+				</tr>
+			</table>					
+		</td>
+	</tr>
+</table><br />
+
+<%= button_to "Voltar", :back, :class=>"semclicar" %>

@@ -1,0 +1,85 @@
+﻿<table class="estilo7" width=95% align="center">
+	<tr>
+		<td class="estilo13" colspan=8> Nota Fiscal Divergente</td>
+	</tr>
+	
+	<tr>
+		<td>
+			<table width="98%" align="center" class="estilo8">
+				<% @divergente_detalhe.each do |d| %>
+					<tr>
+						<td class="negrito">Nº Aviso:</td>
+						<td><%= d.NumAviso %></td>
+						<td class="negrito">Nº Nota Fiscal:</td>
+						<td><%= d.NumNF %></td>
+						<td class="negrito">Emissão:</td>
+						<td><%= d.DataHoraEmissao %></td>
+						<td class="negrito">Total NF:</td>
+						<td><%= d.VlrTotalFatura %></td>
+					</tr>
+				<% end %>
+				
+				<% @divergente_detalhe.each do |d| %>
+					<tr>
+						<td class="negrito">Vencimento:</td>
+						<td><%= d.DataVencimento %></td>
+						<td class="negrito">Série:</td>
+						<td><%= d.SerieNF %></td>
+						<td class="negrito">Mercadorias:</td>
+						<td><%= d.VlrTotalMercadorias %></td>
+						<td class="negrito">Total Descontos:</td>
+						<td><%= d.VlrTotalDescontos %></td>
+					</tr>
+				<% end %>
+			</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan=8 align='center'>
+			<table width="98%" class="estilo10">
+				<tr>
+					<td align="center" class="negrito" id="prop1">Produto</td>
+					<td align="center" class="negrito" id="prop1">Descrição</td>
+					<td align="center" class="negrito" id="prop1">Qtde NF</td>
+					<td align="center" class="negrito" id="prop1">Qtde Pedido</td>
+					<td align="center" class="negrito" id="prop1">Custo NF</td>
+					<td align="center" class="negrito" id="prop1">Custo Pedido</td>
+					<td align="center" class="negrito" id="prop1">Divergência</td>
+					<td align="center" class="negrito" id="prop1">Alíq. IPI</td>
+					<td align="center" class="negrito" id="prop1">ICMS Fonte</td>
+				</tr>
+				<% @produtos.each do |d| %>
+					<tr id="prop2" class="estilo8">
+						<td align="center"><%= d.CodProduto %></td>
+						<td align="center"><%= d.DescProduto %></td>
+						<td align="center"><%= d.QtdeFaturada %></td>
+						<td align="center"><%= d.QtdeTotalItens %></td>
+						<td align="right"><%= d.VlrTotalLiquido %></td>
+						<td align="right"><%= d.VlrTotalBruto %></td>
+						<td align="right"><%= d.VlrDivergente %></td>
+						<td align="right"><%= d.VlrTotalIPI %></td>
+						<td align="right"><%= d.VlrTotalICMS %></td>
+					</tr>
+				<% end %>
+			</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td colspan=8 align='center'>
+			<table width="98%" align="center" class="estilo9">
+				<% @divergente_detalhe.each do |d| %>
+					<tr class="estilo8">
+						<td align="right" class="negrito">Valor total considerado:</td>
+						<td align="left"><%= d.VlrTotalLiquido %></td>
+						<td align="right" class="negrito">Total da NF enviado pelo fornecedor:</td>
+						<td align="left"><%= d.VlrTotalFatura %></td>
+						<td align="right" class="negrito">Divergência:</td>
+						<td align="left"><%= d.VlrDivergente %></td>
+					</tr>
+				<% end %>
+			</table>
+		</td>
+	</tr>
+</table>

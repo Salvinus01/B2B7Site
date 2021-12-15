@@ -1,0 +1,97 @@
+﻿<%= form_tag nil, :name=> "formulario", :method => "get" do %>
+	<table width="100%" class="estilo0" border="0" height="100%">
+		<tr>
+			<td height="25" colspan=3></td>
+		</tr>
+		
+		<tr>
+			<td width="15"></td>
+			<td align="right">
+				<table>
+					<tr>
+						<td class="estilo4" id="red"><%= submit_tag "Solicitar Antecipação", :onclick => "return ValidaNenhumAviso()", :id=>"red", :class=>"estilo4" %></td>
+					</tr>
+				</table>
+			</td>			
+		</tr>
+		
+		<tr>
+			<td width="15"></td>
+			<td>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" id="tabela1" >
+					<tr> 
+						<td align="center" width="2%" height="40" class="estilo3"><input type="checkbox" id="CheckboxPrincipal" name="CheckboxPrincipal" onClick="SelecionarTodos();"/></td>
+						<td nowrap align="center" width="15%" height=30 class="estilo3">Número Aviso</td>
+						<td align="center" width="17%" class="estilo3">Situação</td>
+						<td align="center" width="16%" class="estilo3">Vencimento</td>
+						<td align="center" width="15%" class="estilo3">Valor Bruto</td>
+						<td align="center" width="15%" class="estilo3">Valor Líquido</td>				
+						<td align="center" width="20%" class="estilo3">Valor Líquido Antecipado</td>
+					</tr>
+					<% @arrayavisocredito.each do |d| %>	
+						<tr class="cor<%= d.FlgAntecipacao %>">
+							<td align="center" height="20" class="estilo6">
+								<% if d.FlgAntecipacao == 2 or d.FlgAntecipacao == 3 %>
+									<input type="checkbox"  name="Checkbox[]" id="Checkbox" value="<%= d.NumAviso %>" disabled=true />
+								<% else %>
+									<input type="checkbox"  name="Checkbox[]" id="Checkbox" value="<%= d.NumAviso %>" />
+								<% end %>
+							</td>
+							<td align="center" height=20 class="estilo6"><%= d.NumAviso %></td>
+							<td align="center" class="estilo6"> <input type="hidden" value="<%= d.FlgAntecipacao %>" />
+								<% if d.FlgAntecipacao == 1 %>
+									Disponível 
+								<% else %>
+									<% if d.FlgAntecipacao == 2 %>
+										Indisponível 
+									<% else %>										
+											Já Antecipado										
+									<% end %>
+								<% end %>						
+							</td>						
+							<td align="center" class="estilo6"><%= d.DataVencimento %></td>
+							<td align="center" class="estilo6">
+								<% if d.VlrTotalBruto != nil %>
+									R$ <%= "%.2f" % d.VlrTotalBruto %>
+								<% end %>
+							</td>
+							<td align="center" class="estilo6" >
+								<% if d.VlrTotalLiquido != nil %>
+									R$ <%= "%.2f" % d.VlrTotalLiquido %>
+								<% end %>
+							</td>
+							<td align="center" class="estilo6" >
+								&nbsp;
+							</td>
+						</tr>
+					<% end %>
+				</table>
+			</td>
+			<td width="15"></td>
+		</tr>
+		
+		<tr>
+			<td width="15"></td>
+			<td align="right">
+				<table>
+					<tr>
+						<td class="estilo4" id="red"><%= submit_tag "Solicitar Antecipação", :onclick => "return ValidaNenhumAviso()", :id=>"red", :class=>"estilo4" %></td>
+					</tr>
+				</table><br /><br />
+			</td>
+			<td width="15"></td>
+		</tr>
+		
+		<tr>
+			<td width="15"></td>
+			<td>
+				<table width="60%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td align="left" class="texto1" width="70%">Conforme sua solicitação, estaremos aceitando o desconto com base no CDI + spread calculado de acordo com sua faixa mensal de faturamento, oferecido para antecipação de pagamento.</td>
+					</tr>
+				</table>
+			</td>
+			<td width="15"></td>
+		</tr>
+	</table>
+<% end %>

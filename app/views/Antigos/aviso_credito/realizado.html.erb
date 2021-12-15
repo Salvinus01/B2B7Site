@@ -1,0 +1,68 @@
+﻿<script type = "text/javascript">
+	jQuery(function($){
+		$("#idDataInicial").mask("99/99/9999");
+		$("#idDataFinal").mask("99/99/9999");
+		$("#idNumNF").mask("99999999");
+	});
+</script>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="titpag">Aviso de Crédito Realizado</td>
+		<td align="right"></td>
+	</tr>
+</table><br />
+		
+<%= form_tag nil, :method => "get" do %>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bgtab">
+		<tr>
+			<td colspan="4" class="tittab1">Visualizar somente os avisos de créditos:</td>
+		</tr>
+		<tr>
+			<td>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr align="left">
+						<td colspan="3" nowrap class="idcampo"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+					</tr>
+					<tr>
+						<td align="right" nowrap class="idcampo">Data Inicial:&nbsp;</td>
+						<td width="90"><input name="nmDataInicial" value="<%= params[:nmDataInicial] %>" type="text" class="input" id="idDataInicial" size="13" /></td>
+						<td class="campo" align="left" width="">&nbsp;&nbsp;dd/mm/aaaa</td>
+					</tr>
+					<tr>
+						<td align="right" nowrap class="idcampo">Data Final:&nbsp;</td>
+						<td><input name="nmDataFinal" type="text" value="<%= params[:nmDataFinal] %>" class="input" id="idDataFinal" size="13" /></td>
+						<td class="campo" align="left">&nbsp;&nbsp;dd/mm/aaaa</td>
+					</tr>
+					<tr>
+						<td align="right" nowrap class="idcampo">Nota Fiscal:&nbsp;</td>
+						<td><input name="nmNumNF" value="<%= params[:nmNumNF] %>" type="text" class="input" id="idNumNF" size="13" maxlength="8" /></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td align="right" nowrap class="idcampo">Avisos:&nbsp;</td>
+						<td align="left" class="campo"><input name="nmItensBaixados" type="radio" id="idItensBaixados" value="1">&nbsp;Baixados</td>
+						<td align="left" class="campo"><input name="nmItensBaixados" type="radio" id="idItensNaoBaixados" value="0"/>&nbsp;Não Baixados</td>
+					</tr>
+					<tr>
+						<td width="89"><img src="/imagens/transparente.gif" width="10" height="10"></td>
+						<td><img src="/imagens/transparente.gif" width="10" height="10"></td>
+						<td></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table><br />
+		
+	<table align="left" border="0" cellpadding="0" cellspacing="0">
+		<tr> 
+			<td><input name="bt_pesquisar" type="submit" class="semclicar" value="Pesquisar" />&nbsp;</td>
+			<td><div style="float:left"><%= button_to "Voltar", :back, :class=>"semclicar" %></div></td>
+		</tr>
+	</table>
+<% end %><br /> 
+		 
+<div id="pesquisa">
+	<%= render "pesquisa_realizado" %>
+</div>
+

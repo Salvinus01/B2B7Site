@@ -1,0 +1,2 @@
+module B2bNotafiscalHelper
+end

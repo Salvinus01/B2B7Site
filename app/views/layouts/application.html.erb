@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>B2B7</title>
+		<%= stylesheet_link_tag    "application" %>
+		<%= csrf_meta_tags %>
+		<%= javascript_include_tag "jquery-1.6.2.js"%>
+		<%= javascript_include_tag "jquery.maskedinput-1.3.js" %>
+		<%= javascript_include_tag "jquery.ui.datepicker-pt-BR.js" %>
+		<%= javascript_include_tag "jquery-ui-1.8.14.custom.min.js" %>
+		<%= javascript_include_tag "jquery.cookie.js" %>
+		<script type="text/javascript">
+			var tabSel = "";
+
+			function JTabControl(divMaster,tabWidth,tabHeight){
+				this.tabs = 0;
+				this.addTab = addTab;
+				this.id  = divMaster;
+
+				Construtor(tabWidth,tabHeight);
+
+				this.Container = getObj(divMaster+".ContainerDiv");
+				this.Header = getObj(divMaster+".HeaderDiv");
+				this.Body = getObj(divMaster+".BodyDiv");
+
+				function Construtor(tabWidth,tabHeight){
+					var idContainer = divMaster+".ContainerDiv";
+					var idHeader = divMaster+".HeaderDiv";
+					var idBody = divMaster+".BodyDiv";
+
+					this.Container = getObj(divMaster);
+					this.Container.innerHTML =  "<div id='"+idContainer+"' class='jAbaContainer'></div>" + this.Container.innerHTML;
+					this.Container = document.getElementById(idContainer);
+					this.Container.innerHTML = "<div id='"+idHeader+"' Class='jAbaHeader'></div>" + "<div id='"+idBody+"' Class='jAbaBody'></div>"
+					this.Header = getObj(idHeader);
+					this.Body = getObj(idBody);
+
+					this.Container.style.width = tabWidth;
+					this.Container.style.height = tabHeight;
+				}
+
+				function addTab(divTab,TitleTab){
+					var htmlHeader = "";
+					var htmlBody = "";
+					var objDivOld = getObj(divTab);
+					var bodyClass = "jTabBodyHidden";
+					var headerClass = "jTabHeaderHidden";
+
+					if(!TitleTab)
+						TitleTab = divTab;
+					if(this.tabs == 0)
+						bodyClass = "jTabBodyInline";
+					if(this.tabs == 0)
+						headerClass = "jTabHeaderInline";
+
+					htmlHeader = "<Span onClick='changeJTabControl(this.id)' id='"+this.id+".Header.Tab."+this.tabs+"' Class='"+headerClass+"'>"+TitleTab+"</Span>";
+					htmlBody = " <Span id='"+this.id+".Body.Tab."+this.tabs+"' Class='"+bodyClass+"'>"+objDivOld.innerHTML+"</Tab>";
+					objDivOld.innerHTML = "";
+
+					Header.innerHTML = Header.innerHTML + htmlHeader;
+					Body.innerHTML = Body.innerHTML + htmlBody;
+
+					this.tabs++;
+				}
+			}
+
+			function changeJTabControl(Tab){
+				tabSel = Tab;
+				var id = Tab.split(".");
+				var i = 0;
+				var j = 0;
+
+				while(getObj(id[0]+".Header.Tab."+i)){
+					getObj(id[0]+".Header.Tab."+i).className = "jTabHeaderHidden"
+					i++;
+				}
+				getObj(Tab).className = "jTabHeaderInline";
+
+				i=0;
+				while(getObj(id[0]+".Body.Tab."+j)){
+					getObj(id[0]+".Body.Tab."+j).className = "jTabBodyHidden"
+					j++;
+				}
+				getObj(id[0]+".Body.Tab."+id[3]).className = "jTabBodyInline";
+			}
+			
+			function getObj(idObj){
+				return document.getElementById(idObj);
+			}
+
+			cont = 0;
+			function SelecionarTodos(){
+				for (var i=0;i<document.formulario.elements.length;i++){
+					var x = document.formulario.elements[i];
+						if (x.name == 'Checkbox[]' && x.disabled == false){
+							x.checked = document.formulario.CheckboxPrincipal.checked;
+						}
+				}
+				if (cont == 0){
+					var elem = document.getElementById("checar");
+					// elem.innerHTML = "Desmarcar todos";
+					cont = 1;
+				}else{
+					var elem = document.getElementById("checar");
+					// elem.innerHTML = "Marcar todos";
+					cont = 0;
+				}
+			}
+
+			function Imprimir(){
+				if (!window.print){
+					alert("Use o Netscape ou Internet Explorer, nas versões 4.0 ou superior!")
+					return
+				}
+				window.print()
+			}
+
+			function ValidaCampoDatas() {
+				var dataInicial = document.getElementById("idDataInicial").value;
+				var dataFinal = document.getElementById("idDataFinal").value;
+
+				if (((dataInicial == "" || dataInicial.search("_") != -1) && (dataFinal != "" || dataFinal.search("_") != -1)) || ((dataFinal == "" || dataFinal.search("_") != -1) && (dataInicial != "" || dataInicial.search("_") != -1))){
+					alert ("Preencher o periodo corretamente!");
+					return false;
+				}else{
+					if (dataInicial != "" && dataFinal != ""){
+						var erroI = "";
+						var erroF = "";
+						var expReg = /^([012][0-9]|3[01])\/(0[1-9]|1[012])\/([1-2][0-9]\d{2})$/;
+						var $diaI  = parseFloat(dataInicial.substring(0,2));
+						var $mesI  = parseFloat(dataInicial.substring(3,5));
+						var $anoI  = parseFloat(dataInicial.substring(6,10));
+						var $diaF  = parseFloat(dataFinal.substring(0,2));
+						var $mesF  = parseFloat(dataFinal.substring(3,5));
+						var $anoF  = parseFloat(dataFinal.substring(6,10));
+
+						if(dataInicial.match(expReg)){
+							if(($mesI==4 && $diaI>30) || ($mesI==6 && $diaI>30) || ($mesI==9 && $diaI>30) || ($mesI==11 && $diaI>30)){
+								erroI = "Data incorreta! O mês "+$mesI+" contém 30 dias.";
+							}else{
+								if($anoI%4!=0 && $mesI==2 && $diaI>28){
+									erroI = "Data incorreta!! O mês "+$mesI+" contém 28 dias.";
+								}else{
+									if($anoI%4==0 && $mesI==2 && $diaI>29){
+										erroI = "Data incorreta!! O mês "+$mesI+" contém 29 dias.";
+									}
+								}
+							}
+						}else{
+							if ($diaI<1 || $diaI>31) {
+								erroI = "Dia "+$diaI+" inválido.";
+							}else{
+								if ($mesI<1 || $mesI>12) {
+									erroI = "Mês "+$mesI+" inválido.";
+								}else{
+									erroI = "Data Inválida.";
+								}
+							}
+						}
+
+						if(dataFinal.match(expReg)){
+							if(($mesF==4 && $diaF>30) || ($mesF==6 && $diaF>30) || ($mesF==9 && $diaF>30) || ($mesF==11 && $diaF>30)){
+								erroF = "Data incorreta! O mês "+$mesF+" contém 30 dias.";
+							}else{
+								if($anoF%4!=0 && $mesF==2 && $diaF>28){
+									erroF = "Data incorreta!! O mês "+$mesF+" contém 28 dias.";
+								}else{
+									if($anoF%4==0 && $mesF==2 && $diaF>29){
+										erroF = "Data incorreta!! O mês "+$mesF+" contém 29 dias.";
+									}
+								}
+							}
+						}else{
+							if ($diaF<1 || $diaF>31) {
+								erroF = "Dia "+$diaF+" inválido.";
+							}else{
+								if ($mesF<1 || $mesF>12) {
+									erroF = "Mês "+$mesF+" inválido.";
+								}else{
+									erroF = "Data Inválida.";
+								}
+							}
+						}
+
+						if(erroI){
+							alert(erroI);
+							document.getElementById("idDataInicial").value = "";
+							return false;
+						}
+						if(erroF){
+							alert(erroF);
+							document.getElementById("idDataFinal").value = "";
+							return false;
+						}
+						return true;
+					}
+				}
+			}
+			
+			function ValidaNroAviso(){
+				var y = new Array()
+				var w = new Array()
+				var checkbox = document.formulario.elements.Checkbox;
+				var radio = document.formulario.elements.idRadio1;
+				it = 0;
+
+				if(checkbox != undefined){
+					if(checkbox.length == undefined){
+						if(checkbox.checked){
+							return true;
+						}else{
+							alert("Selecione um item.");
+							return false;
+						}
+					}else{
+						for (var i=0;i<checkbox.length;i++){
+							var z = checkbox[i];
+
+							if(z.checked){
+								w[it] = z.value;
+								it++;
+							}
+						}
+
+						if(w.length != 1){
+							alert("Selecione um item.");
+							return false;
+						}else{
+							return true;
+						}
+					}
+				}else{
+					if(radio.length == undefined){
+						if(radio.checked){
+							return true;
+						}else{
+							alert("Selecione um item.");
+							return false;
+						}
+					}else{
+						for (var i=0;i<radio.length;i++){
+							var x = radio[i];
+
+							if(x.checked){
+								y[i] = x.value;
+							}
+						}
+
+						if(y.length == 0){
+							alert("Selecione um item.");
+							return false;
+						}else{
+							return true;
+						}
+					}
+				}
+			}
+
+			function ValidaNenhumAviso(){
+				var y = new Array();
+				var checkbox = document.formulario.elements.Checkbox;
+
+				if (checkbox.length == undefined){
+					if(checkbox.checked == false){
+						alert("Selecione um item.");
+						return false;
+					} else {
+						checkbox.length = 1;
+					}
+				}
+
+				for (var i=0;i<checkbox.length;i++){
+					var x = checkbox[i];
+					
+					if(x.checked){
+						y[i] = x.value;
+					}
+				}
+
+				if(y.length == 0){
+					alert("Selecione um item.");
+					return false;
+				}else{
+					return true;
+				}
+			}
+
+			function FormatarNumero(e){
+				var keynum;
+
+				if (window.event){ keynum = e.keyCode; }
+				else if (e.which){ keynum = e.which; }
+
+				if ((keynum < 48 || keynum > 57) && keynum != 8){
+					if (window.event) window.event.keyCode=0;
+					return false;
+				}else{
+					return true;
+				}
+			}
+		</script>
+	</head>
+	<body>
+
+		<%= yield %>
+
+	</body>
+</html>

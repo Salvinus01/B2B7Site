@@ -1,0 +1,87 @@
+﻿<%= form_tag nil, :name=> "formulario", :method => "get" do %>
+	<table border="0" cellspacing="0" cellpadding="0" width="100%" id="margemNegativa">
+		<tr>
+			<td align="center" class="tittab7" height="40">&nbsp;</td>
+			<td align="center" class="tittab7">N° NF</td>
+			<td align="center" class="tittab7">Série</td>
+			<td align="center" class="tittab7">Emissão</td>
+			<td align="center" class="tittab7">Entrega</td>
+			<td align="center" class="tittab7">Merc.</td>
+			<td align="center" class="tittab7">IPI</td>
+			<td align="center" class="tittab7">Enc.</td>
+			<td align="center" class="tittab7">Frete</td>
+			<td align="center" class="tittab7">ICMS</td>
+			<td align="center" class="tittab7">Total</td>
+		</tr>
+		<% sClasse = "borderTableResul1" %>
+		<% @pesquisa.each do |x| %>
+			<tr>
+				<td align="center" class="<%= sClasse %>"><input type="radio" name="idRadio1" id="idRadio1" value="<%= x.NumNF %>"></td>
+				<td align="center" class="<%= sClasse %>"><%= x.NumNF %></td>
+				<td align="center" class="<%= sClasse %>"><%= x.SerieNF %></td>
+				<td align="center" class="<%= sClasse %>">
+					<%= if !x.DataHoraEmissao.blank?
+						x.DataHoraEmissao.strftime("%d/%m/%Y")
+					end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<%= if !x.DataHoraEntrega.blank?
+						x.DataHoraEntrega.strftime("%d/%m/%Y")
+					end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if x.VlrTotalMercadorias != nil %>
+						R$ <%= "%.2f" % x.VlrTotalMercadorias %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if x.VlrTotalIPI != nil %>
+						R$ <%= "%.2f" % x.VlrTotalIPI %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">&nbsp;</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if x.VlrTotalFrete != nil %>
+						R$ <%= "%.2f" % x.VlrTotalFrete %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if x.VlrTotalICMS != nil %>
+						R$ <%= "%.2f" % x.VlrTotalICMS %>
+					<% end %>
+				</td>
+				<td align="center" class="<%= sClasse %>">
+					<% if x.VlrTotalNota != nil %>
+						R$ <%= "%.2f" % x.VlrTotalNota %>
+					<% end %>
+				</td>
+			</tr>
+			<% if sClasse == "borderTableResul1"
+				sClasse = "borderTableResul2"
+			else
+				sClasse = "borderTableResul1"
+			end
+		end %>
+	</table>
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="distanciaBtn">
+		<tr>
+			<td class="link" width="50%">
+				<%= submit_tag "Visualizar", :onclick => "return ValidaNroAviso();return false", :class=>"visualizarSubmit"  %>
+				<%= submit_tag "Imprimir", :onclick => "return ValidaNroAviso();return false", :class=>"imprimirSubmit"  %>
+				<%= submit_tag "Download", :onclick => "return ValidaNroAviso();return false", :class=>"downloadSubmit"  %>
+			</td>
+			<td align="right" class="digg_pagination">
+				<% if B2bNotafiscaldevolucao.last_page_number >0 %>
+					<%= will_paginate @pesquisa, :previous_label => "< Anterior", :next_label => "Próximo >" if @pesquisa.respond_to? :total_pages %>
+				<% else %>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+
+	<div class="texto1">
+		Documento para simples conferência, sem valor jurídico.<br />
+		Obs.: Valores sujeitos a alterações até a data de vencimento.
+	</div>
+<% end %>

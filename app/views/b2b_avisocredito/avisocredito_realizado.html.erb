@@ -1,0 +1,72 @@
+﻿<script type = "text/javascript">
+	jQuery(function($){
+		$("#idDataInicial").mask("99/99/9999");
+		$("#idDataFinal").mask("99/99/9999");
+		$( "#idDataInicial, #idDataFinal" ).datepicker({
+			showOn: "button",
+			buttonImage: "/imagens/calendar.gif",
+			buttonImageOnly: true
+		});
+	});
+</script>
+
+<%= form_tag nil, :name=> "form1", :class=>"ajusteOffset", :method => "get" do %>
+	<div class="titpag2">
+		<div class="conteudo1">
+			<table class="table2">
+				<tr>
+					<td nowrap class="nomeMenu">Financeiro</td>
+					<td nowrap class="nomeMenu">::</td>
+					<td nowrap class="nomeSubmenu">Aviso de Crédito Realizado</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<fieldset class="contMinWidth" id="fundo">
+		<legend><span class="titFieldset">Dados</span></legend>
+		<table width="100%" border="0" class="table1">
+			<tr>
+				<td class="idcampo" width="130" align="right">Data Inicial:</td>
+				<td>
+					<input type="text" name="nmDataInicial" id="idDataInicial" class="input"/>
+					<span id="pop1"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="idcampo" width="130" align="right">Data Final:</td>
+				<td>
+					<input type="text" name="nmDataFinal" id="idDataFinal" class="input"/>
+					<span id="pop2"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="idcampo" width="130" align="right">Nota Fiscal:</td>
+				<td><input type="text" name="nmNumNF" id="idNumNF" class="input" onkeypress = "return FormatarNumero(event);" /></td>
+			</tr>
+			<tr>
+				<td class="idcampo" width="130" align="right">Avisos:</td>
+				<td class="campo" align="left"><input type="radio" name="nmItensBaixados" id="idItensBaixados" value="1" /> Baixados <input type="radio" name="nmItensBaixados" id="idItensNaoBaixados" value="0" /> Não Baixados</td>
+			</tr>
+		</table>
+	</fieldset>
+
+	<div align="left" class="contMinWidth">
+		<%= image_submit_tag ("bto-pesquisar.png"), :class => "btnPesquisar", :onclick => "return ValidaCampoDatas();"%>
+	</div>
+<% end %>
+
+<% if !@pesquisa.nil? %>
+	<div id="mensagem" class="Mostrar">
+		<fieldset class="contMinWidth" id="fundo">
+			<legend><span class="titFieldset">Relatório</span></legend>
+			<div id="pesquisa" class="ajusteFrame">
+				<% if @pesquisa == [] %>
+					<%= render "pesquisa_sem_resultado" %>
+				<% else %>
+					<%= render "pesquisa_realizado" %>
+				<% end %>
+			</div>
+		</fieldset>
+	</div>
+<% end %>

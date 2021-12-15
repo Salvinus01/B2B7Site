@@ -1,0 +1,55 @@
+﻿<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="titpag">Aviso de Crédito Previsto / Antecipação</td>
+		<td align="right"></td>
+	</tr>
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgtab0">
+	<tr> 
+		<td nowrap align="center" width="16%" height=30 class="tittab2">Número Aviso</td>
+		<td align="center" width="17%" class="tittab2">Situação</td>
+		<td align="center" width="18%" class="tittab2">Vencimento</td>
+		<td align="center" width="15%" class="tittab2">Valor Bruto</td>
+		<td align="center" width="15%" class="tittab2">Valor Líquido</td>				
+		<td align="center" width="20%" class="tittab2">Valor Líquido Antecipado</td>
+	</tr>
+	<% @detalhe.each do |f| %>
+		<tr>
+			<td align="center" height=20 class="bgtab1"><%= f.NumAviso %></td>
+			<td align="center" class="bgtab1" ><%= f.Situacao_Antecipacao %></td>
+			<td align="center" class="bgtab1" ><%= f.DataVencimento %></td>
+			<td align="center" class="bgtab1" >
+				<% if f.VlrBruto != nil %>
+					R$ <%= "%.2f" % f.VlrBruto %>
+				<% end %>
+			</td>
+			<td align="center" class="bgtab1" >
+				<% if f.VlrLiquido != nil %>
+					R$ <%= "%.2f" % f.VlrLiquido %>
+				<% end %>
+			</td>
+			<td align="center" class="bgtab1" >
+				<% if f.VlrAntecipacao != nil %>
+					R$ <%= "%.2f" % f.VlrAntecipacao %>
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+</table><br />
+		
+<table width="60%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td align="left" class="txt2" width="70%">Conforme sua solicitação, estaremos aceitando o desconto com base no CDI + spread calculado de acordo com sua faixa mensal de faturamento, oferecido para antecipação de pagamento.</td>
+	</tr>
+</table><br /><br />
+		
+<table align="left" border="0" cellpadding="0" cellspacing="0">
+	<tr> 
+		<td><div style="float:left"><%= button_to "Solicitar Antecipação", sucesso_antecipacao_url(:id=>params[:id]), :class=>"semclicar" %></div>&nbsp;</td>
+		<td><div style="float:left"><%= button_to "Voltar", :back, :class=>"semclicar" %></div>&nbsp;</td>
+	</tr>
+</table>

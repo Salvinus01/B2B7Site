@@ -1,0 +1,83 @@
+﻿<%= form_tag nil, :method => "get" do %>
+	<% if @pesquisa == [] %><br /><br />
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tittab4">
+			<tr>
+				<td align="center" class="Esconder" id="mensagem" >Não foram encontrados resultados para sua pesquisa.</td>
+			</tr>
+		</table>
+	<% else %>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bgtab0">
+			<tr> 
+				<td nowrap>	
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgtabZ">
+						<tr> 
+							<td align="center" class="tittab2" width="3%">&nbsp;</td>
+							<td align="center" class="tittab2" width="10%">N° NF</td>
+							<td align="center" class="tittab2" width="9%">Série</td>
+							<td align="center" class="tittab2" width="10%">Emissão</td>
+							<td align="center" class="tittab2" width="10%">Entrega</td>
+							<td align="center" class="tittab2" width="11%">Merc.</td>
+							<td align="center" class="tittab2" width="8%">IPI</td>
+							<td align="center" class="tittab2" width="10%">Enc.</td>
+							<td align="center" class="tittab2" width="7%">Frete</td>
+							<td align="center" class="tittab2" width="7%">ICMS</td>
+							<td align="center" class="tittab2" width="15%">Total</td>
+						</tr>
+						<% @pesquisa.each do |p| %>
+							<tr> 
+								<td align="center" class="bgtab1"><input type="radio" name="idRadio1" value="<%= p.NumNF %>"></td>
+								<td align="center" class="bgtab1"><%= p.NumNF %></td>
+								<td align="center" class="bgtab1"><%= p.SerieNF %></td>
+								<td align="center" class="bgtab1"><%= p.DataEmissao %></td>
+								<td align="center" class="bgtab1"><%= p.DataRecebimento %></td>
+								<td align="center" class="bgtab1">
+									<% if p.VlrBruto != nil %>
+										R$ <%= p.VlrBruto %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1">
+									<% if p.AliquotaIPI != nil %>
+										R$ <%= p.AliquotaIPI %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1">
+									<% if p.Encargos != nil %>
+										R$ <%= p.Encargos %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1">
+									<% if p.VlrBruto != nil %>
+										R$ <%=  %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1">
+									<% if p.AliquotaICMS != nil %>
+										R$ <%= p.AliquotaICMS %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1">
+									<% if p.AliquotasTotais != nil %>
+										R$ <%= p.AliquotasTotais %>
+									<% end %>
+								</td>
+							</tr>
+						<% end %>
+					</table>
+				</td>
+			</tr>      
+		</table><br />
+		
+		<div style=float:right class="digg_pagination">
+			<% if B2bAvisocredito.last_page_number >0 %>
+				<%= will_paginate @pesquisa, :previous_label => "< Anterior", :next_label => "Próximo >" if @pesquisa.respond_to? :total_pages %>				
+			<% else %>
+			<% end %>
+		</div><br />
+			
+		<table align="left" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td><div style="float:left"><%= submit_tag "Cancelar Nota Fiscal", :class=>"semclicar", :onclick => "return ValidaNroAviso();" %></div>&nbsp;</td>
+			</tr>
+		</table>
+	<% end %>
+<% end %>

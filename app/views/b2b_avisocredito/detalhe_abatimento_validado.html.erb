@@ -1,0 +1,28 @@
+﻿<table class="estilo7" width=95% align="center">	
+	<tr>
+		<td class="estilo13"> Discriminação dos valores de Abatimento/Descontos da NF - <%= params[:nota] %> Série - <%= params[:serie] %></td>
+	</tr>
+
+	<tr>
+		<td align="center">
+			<table width="98%" id="prop3" style="border:1px solid white">
+				<tr class="estilo10">
+					<td align="center" class="negrito" id="prop1">Código</td>
+					<td align="center" class="negrito" id="prop1">Descrição</td>
+					<td align="center" class="negrito" id="prop1">Abatimento/Desconto</td>
+				</tr>
+				<% @abatimento.each do |r| %>
+					<tr class="estilo12" id="prop2">
+						<td align="center"><%= r.CodAjuste %></td>
+						<td align="center"><%= r.Referencia %></td>
+						<td align="center"><%= r.VlrTotalAjuste %></td>
+					</tr>
+				<% end %>
+			</table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="estilo11">Documento para simples conferência, sem valor jurídico.</td>
+	</tr>
+</table>

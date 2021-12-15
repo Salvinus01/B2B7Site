@@ -1,0 +1,101 @@
+﻿<%= form_tag nil, :method => "get", :name=>"formulario" do %>
+	<% if @pesquisa == [] %><br /><br />
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td align="center" class="Esconder" id="mensagem">Não foram encontrados resultados para sua pesquisa.</td>
+			</tr>
+		</table>
+	<% else %>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bgtab0">
+			<tr>
+				<td>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgtabZ">
+						<tr>
+							<td align="center" height="40" class="tittab2"><input type="checkbox" id="CheckboxPrincipal" name="CheckboxPrincipal" onClick="SelecionarTodos()" ></td>
+							<td align="center" class="tittab2">Número Aviso</td>
+							<td align="center" class="tittab2">Empresa Pagadora</td>
+							<td align="center" class="tittab2">Vencimento</td>
+							<td align="center" class="tittab2">Valor Bruto</td>
+							<td align="center" class="tittab2">Desconto</td>
+							<td align="center" class="tittab2">Abatimento</td>
+							<td align="center" class="tittab2">Devolução</td>
+							<td align="center" class="tittab2">Abatimento de Crédito</td>
+							<td align="center" class="tittab2">Valor Líquido</td>
+							<td align="center" class="tittab2">Data Antecip.</td>
+							<td align="center" class="tittab2">Valor Antecip.</td>
+							<td align="center" class="tittab2">Tam. Arquivo (Bytes)</td>
+							<td align="center" class="tittab2">Domicílio</td>
+						</tr> 
+						<% @pesquisa.each do |p| %>
+							<tr> 
+								<td align="center" height="20" class="bgtab1"><input type="checkbox" name="Checkbox[]" id="Checkbox" value="<%= p.Aviso %>"></td>
+								<td align="center" class="bgtab1" nowrap><%= p.Aviso %></td>
+								<td align="center" class="bgtab1" nowrap><%= p.EmpresaPagadora %></td>
+								<td align="center" class="bgtab1" nowrap><%= p.DataVencimento %></td>
+								<td align="center" class="bgtab1" nowrap>
+									<% if p.VlrBruto != nil %>
+										R$ <%= "%.2f" % p.VlrBruto %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1" nowrap>
+									<% if p.VlrDesconto != nil %>
+										R$ <%= "%.2f" % p.VlrDesconto %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1" nowrap>
+									<% if p.VlrAbatimento != nil %>
+										R$ <%= "%.2f" % p.VlrAbatimento %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1" nowrap>
+									<% if p.VlrDevolucao != nil %>
+										R$ <%= "%.2f" % p.VlrDevolucao %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1" nowrap>
+									<% if p.VlrAbatimentoCredito != nil %>
+										R$ <%= "%.2f" % p.VlrAbatimentoCredito %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1" nowrap>
+									<% if p.VlrLiquido != nil %>
+										R$ <%= "%.2f" % p.VlrLiquido %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1" nowrap><%= p.DataAntecipacao %></td>
+								<td align="center" class="bgtab1" nowrap>
+									<% if p.VlrAntecipacao != nil %>
+										R$ <%= "%.2f" % p.VlrAntecipacao %>
+									<% end %>
+								</td>
+								<td align="center" class="bgtab1" nowrap><%= p.TamArquivo %></td>
+								<td align="center" class="bgtab1" nowrap><%= p.Domicilio %></td>
+							</tr>
+						<% end %>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<div style=float:right class="digg_pagination">
+			<% if B2bAvisocredito.last_page_number >0 %>
+				<%= will_paginate @pesquisa, :previous_label => "< Anterior", :next_label => "Próximo >" if @pesquisa.respond_to? :total_pages %>
+			<% else %>
+			<% end %>
+		</div><br />
+	
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td align="left" class="txt2">Obs.: Valores sujeitos a alterações até a data de vencimento.</td>
+			</tr>
+		</table><br />
+	
+		<table align="left" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td><div style="float:left"><%= submit_tag "Visualizar", :class=>"semclicar" %></div>&nbsp;</td>
+				<td><div style="float:left"><%= submit_tag "Imprimir", :class=>"semclicar" %></div>&nbsp;</td>
+				<td><div style="float:left"><%= submit_tag "Download", :class=>"semclicar" %></div>&nbsp;</td>
+				<td><div style="float:left"><%= submit_tag "Calcular Antecipacao", :class=>"semclicar" %></div>&nbsp;</td>
+			</tr>
+		</table>
+	<% end %>
+<% end %>
